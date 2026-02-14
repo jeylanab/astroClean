@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* ===========================
+    Google Font Import: Plus Jakarta Sans
+    (Modern, clean, and professional)
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-font: 'Plus Jakarta Sans', sans-serif;
+  --navy-astro: #002664;
+  --slate-astro: #0f172a;
+}
+
+/* Universal Font Application */
+* {
+  font-family: var(--primary-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f8fafc; /* Lighter slate background */
+  color: var(--slate-astro);
+}
+
+/* --- Astroclean Typography Rules --- */
+
+h1, h2, h3 {
+  letter-spacing: -0.025em; /* Tighten up headings for a modern look */
+  line-height: 1.2;
+}
+
+/* Ensure font weight scales nicely */
+.font-black { font-weight: 800; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+
+/* Custom utility for the Navy highlight */
+.text-astro-navy {
+  color: var(--navy-astro);
+}
+
+/* Smooth input transitions */
+input, button {
+  transition: all 0.3s ease;
+}
