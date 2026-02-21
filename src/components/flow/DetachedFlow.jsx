@@ -29,6 +29,15 @@ const animStyles = `
   .drop-in-5  { animation-delay: 280ms; }
   .drop-in-6  { animation-delay: 350ms; }
   .drop-in-7  { animation-delay: 420ms; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+  }
+  .shake { animation: shake 0.4s ease; }
 `;
 
 const DetachedFlow = ({ propertyInfo, onBack }) => {
@@ -46,6 +55,30 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
     veluxCount: '',
     rearAccess: null,
   });
+
+  // Validation error state
+  const [errors, setErrors] = useState({});
+  const [shakeKey, setShakeKey] = useState(0);
+
+  const triggerShake = () => setShakeKey(k => k + 1);
+
+  // Validate and attempt to proceed — returns true if valid
+  const validateAndNext = (fields) => {
+    const newErrors = {};
+    fields.forEach(({ key, label, value }) => {
+      if (value === '' || value === null || value === undefined) {
+        newErrors[key] = `${label} is required`;
+      }
+    });
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      triggerShake();
+      return false;
+    }
+    setErrors({});
+    next();
+    return true;
+  };
 
   const next = () => setStep(step + 1);
   const prev = () => setStep(step - 1);
@@ -70,7 +103,9 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
   const btnPrimary = "bg-yellow-400 text-[#010191] p-4 rounded-xl font-black uppercase hover:bg-white active:scale-95 transition-all text-sm tracking-wide";
   const btnSecondary = "bg-white/5 border border-white/10 p-4 rounded-xl font-bold uppercase text-white/40 hover:bg-white/10 hover:text-white/70 active:scale-95 transition-all text-sm";
   const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-yellow-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
+  const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
   const confirmBtn = "bg-yellow-400 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-white transition-colors";
+  const errMsg = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 text-white">
@@ -138,7 +173,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
             <img src={extentionImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
           <div className="flex flex-col gap-2 w-full max-w-sm">
-            <button onClick={() => { setFormData({ ...formData, hasExtension: true }); next(); }} className={`${btnPrimary} drop-in drop-in-3`}>Yes, I have one</button>
+            <button onClick={() => { setFormData({ ...formData, hasExtension: true }); next(); }} className={`${btnPrimary} drop-in drop-in-3`}>Yes</button>
             <button onClick={() => { setFormData({ ...formData, hasExtension: false }); setStep(5); }} className={`${btnSecondary} drop-in drop-in-4`}>No extension</button>
           </div>
         </div>
@@ -151,14 +186,23 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
           <p className="drop-in drop-in-2 text-[10px] font-bold text-yellow-400 uppercase mb-6 tracking-widest">Select multiple if needed</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full flex-1">
             {[{ id: 'loft', title: 'Loft', img: loftImg }, { id: 'side', title: 'Side', img: sideImg }, { id: 'rear', title: 'Rear', img: rearImg }].map((item, i) => (
-              <button key={item.id} onClick={() => toggleExtension(item.id)}
+              <button key={item.id} onClick={() => { toggleExtension(item.id); setErrors(e => ({ ...e, extensionTypes: '' })); }}
                 className={`drop-in drop-in-${i + 3} p-4 rounded-2xl border transition-all flex flex-col items-center justify-center ${formData.extensionTypes.includes(item.id) ? 'border-yellow-400 bg-yellow-400/10 shadow-lg shadow-yellow-400/10' : 'border-white/10 bg-white/5'}`}>
                 <img src={item.img} alt="" className="h-16 md:h-24 object-contain mb-3" />
                 <span className={`font-black uppercase text-[10px] tracking-tighter ${formData.extensionTypes.includes(item.id) ? 'text-yellow-400' : 'text-white/60'}`}>{item.title}</span>
               </button>
             ))}
           </div>
-          <button onClick={next} className={`${confirmBtn} drop-in drop-in-6 mt-6`}>Continue</button>
+          {errors.extensionTypes && <p key={shakeKey} className={`${errMsg} shake mt-3`}>{errors.extensionTypes}</p>}
+          <button onClick={() => {
+            if (formData.extensionTypes.length === 0) {
+              setErrors({ extensionTypes: 'Please select at least one extension type' });
+              triggerShake();
+            } else {
+              setErrors({});
+              next();
+            }
+          }} className={`${confirmBtn} drop-in drop-in-6 mt-6`}>Continue</button>
         </div>
       )}
 
@@ -211,13 +255,17 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many glass panels does your conservatory have?*</h2>
           <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 max-w-xs ">Count the whole panel from floor to ceiling as one panel. Please don't include your roof panels as we don't offer roof cleaning as a service.</p>
-          <input
-            type="number"
-            placeholder="Type here"
-            className={`${inputBase} drop-in drop-in-3  max-w-[120px] mb-8`}
-            onChange={(e) => setFormData({ ...formData, conservatoryPanels: e.target.value })}
-          />
-          <button onClick={next} className={`${confirmBtn} drop-in drop-in-4`}>Confirm</button>
+          <div className="drop-in drop-in-3">
+            <input
+              type="number"
+              placeholder="Type here"
+              className={`${errors.conservatoryPanels ? inputError : inputBase} max-w-[120px] mb-1`}
+              onChange={(e) => { setFormData({ ...formData, conservatoryPanels: e.target.value }); setErrors(err => ({ ...err, conservatoryPanels: '' })); }}
+            />
+            {errors.conservatoryPanels && <p key={shakeKey} className={`${errMsg} shake`}>{errors.conservatoryPanels}</p>}
+          </div>
+          <div className="mb-8" />
+          <button onClick={() => validateAndNext([{ key: 'conservatoryPanels', label: 'Number of panels', value: formData.conservatoryPanels }])} className={`${confirmBtn} drop-in drop-in-4`}>Confirm</button>
         </div>
       )}
 
@@ -240,13 +288,17 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many velux windows does your property have?*</h2>
           <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 ">Please only include velux windows we can reach from ground level.</p>
-          <input
-            type="number"
-            placeholder="Type here"
-            className={`${inputBase} drop-in drop-in-3 max-w-[120px] mb-8`}
-            onChange={(e) => setFormData({ ...formData, veluxCount: e.target.value })}
-          />
-          <button onClick={next} className={`${confirmBtn} drop-in drop-in-4`}>Confirm</button>
+          <div className="drop-in drop-in-3">
+            <input
+              type="number"
+              placeholder="Type here"
+              className={`${errors.veluxCount ? inputError : inputBase} max-w-[120px] mb-1`}
+              onChange={(e) => { setFormData({ ...formData, veluxCount: e.target.value }); setErrors(err => ({ ...err, veluxCount: '' })); }}
+            />
+            {errors.veluxCount && <p key={shakeKey} className={`${errMsg} shake`}>{errors.veluxCount}</p>}
+          </div>
+          <div className="mb-8" />
+          <button onClick={() => validateAndNext([{ key: 'veluxCount', label: 'Number of velux windows', value: formData.veluxCount }])} className={`${confirmBtn} drop-in drop-in-4`}>Confirm</button>
         </div>
       )}
 
@@ -298,10 +350,47 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Your Details*</h2>
           <div className="grid gap-6 max-w-sm w-full">
-            <input type="text" placeholder="First Name*" className={`${inputBase} drop-in drop-in-2 text-xl`} />
-            <input type="tel" placeholder="Phone Number*" className={`${inputBase} drop-in drop-in-3 text-xl`} />
-            <input type="email" placeholder="Email Address" className={`${inputBase} drop-in drop-in-4 text-xl`} />
-            <button onClick={next} className="drop-in drop-in-5 bg-yellow-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-white transition-all uppercase tracking-wide">Next</button>
+            <div className="drop-in drop-in-2">
+              <input
+                type="text"
+                placeholder="First Name*"
+                className={`${errors.firstName ? inputError : inputBase} text-xl`}
+                onChange={(e) => { setErrors(err => ({ ...err, firstName: '' })); }}
+                ref={el => el && (el._fieldKey = 'firstName')}
+                id="input-firstName"
+              />
+              {errors.firstName && <p key={shakeKey} className={`${errMsg} shake`}>{errors.firstName}</p>}
+            </div>
+            <div className="drop-in drop-in-3">
+              <input
+                type="tel"
+                placeholder="Phone Number*"
+                defaultValue="+44 "
+                id="input-phone"
+                className={`${errors.phone ? inputError : inputBase} text-xl pl-16`}
+                style={{ backgroundImage: 'url("https://flagcdn.com/w20/gb.png")', backgroundRepeat: 'no-repeat', backgroundPosition: '16px center' }}
+                onChange={(e) => { setErrors(err => ({ ...err, phone: '' })); }}
+              />
+              {errors.phone && <p key={shakeKey} className={`${errMsg} shake`}>{errors.phone}</p>}
+            </div>
+            <input type="email" placeholder="Email Address" id="input-email" className={`${inputBase} drop-in drop-in-4 text-xl`} />
+            <button
+              onClick={() => {
+                const firstName = document.getElementById('input-firstName')?.value?.trim();
+                const phone = document.getElementById('input-phone')?.value?.trim();
+                const newErrors = {};
+                if (!firstName) newErrors.firstName = 'First name is required';
+                if (!phone || phone === '+44' || phone === '+44 ') newErrors.phone = 'Phone number is required';
+                if (Object.keys(newErrors).length > 0) {
+                  setErrors(newErrors);
+                  triggerShake();
+                } else {
+                  setErrors({});
+                  next();
+                }
+              }}
+              className="drop-in drop-in-5 bg-yellow-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-white transition-all uppercase tracking-wide"
+            >Next</button>
           </div>
         </div>
       )}
@@ -311,9 +400,34 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Address*</h2>
           <div className="grid gap-6 max-w-sm w-full">
-            <input type="text" placeholder="Address line 1*" className={`${inputBase} drop-in drop-in-2 text-lg`} />
-            <input type="text" placeholder="Postcode*" className={`${inputBase} drop-in drop-in-3 text-lg`} />
-            <button onClick={next} className="drop-in drop-in-4 bg-yellow-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-white transition-all tracking-wide">Book Now</button>
+            <div className="drop-in drop-in-2">
+              <input type="text" placeholder="Address line 1*" id="input-address1" className={`${errors.address1 ? inputError : inputBase} text-lg`}
+                onChange={() => setErrors(err => ({ ...err, address1: '' }))} />
+              {errors.address1 && <p key={shakeKey} className={`${errMsg} shake`}>{errors.address1}</p>}
+            </div>
+            <input type="text" placeholder="Address line 2" className={`${inputBase} drop-in drop-in-2 text-lg`} />
+            <div className="drop-in drop-in-3">
+              <input type="text" placeholder="Postcode*" id="input-postcode" className={`${errors.postcode ? inputError : inputBase} text-lg`}
+                onChange={() => setErrors(err => ({ ...err, postcode: '' }))} />
+              {errors.postcode && <p key={shakeKey} className={`${errMsg} shake`}>{errors.postcode}</p>}
+            </div>
+            <button
+              onClick={() => {
+                const address1 = document.getElementById('input-address1')?.value?.trim();
+                const postcode = document.getElementById('input-postcode')?.value?.trim();
+                const newErrors = {};
+                if (!address1) newErrors.address1 = 'Address line 1 is required';
+                if (!postcode) newErrors.postcode = 'Postcode is required';
+                if (Object.keys(newErrors).length > 0) {
+                  setErrors(newErrors);
+                  triggerShake();
+                } else {
+                  setErrors({});
+                  next();
+                }
+              }}
+              className="drop-in drop-in-4 bg-yellow-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-white transition-all tracking-wide"
+            >Book Now</button>
           </div>
         </div>
       )}
@@ -323,7 +437,8 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
         <div className="flex flex-col items-start justify-center py-8 space-y-4">
           <div className="drop-in drop-in-1 w-16 h-16 bg-yellow-400 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-yellow-400/30 animate-bounce font-black">✓</div>
           <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-white">Confirmed!</h2>
-          <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">We'll contact you within 24 hours.</p>
+          <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">Thank you for joining the Window Brothers family!</p>
+          <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">We'll be in touch within 24 hours with the date of your first clean.</p>
         </div>
       )}
 

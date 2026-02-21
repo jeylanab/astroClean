@@ -4,6 +4,11 @@ import React, { useState, useEffect } from 'react';
 import Step0Intro from './steps/Step0Intro';
 import Step1PropertyType from './steps/Step1PropertyType';
 import DetachedFlow from './flow/DetachedFlow';
+import SemiDetachedFlow from './flow/SemiDetachedFlow';
+import TerracedFlow from './flow/TerracedFlow';
+import TownHouseFlow from './flow/TownHouseFlow';
+import BungalowFlow from './flow/BungalowFlow';
+import FlatFlow from './flow/FlatFlow';
 
 // 2. Asset Imports
 import detachedImg from '../assets/detached.png';
@@ -14,7 +19,6 @@ import bungalowImg from '../assets/bungalow.png';
 import flatImg from '../assets/flat.png';
 
 const Quote = () => {
-  // Initialize to 'intro' instead of 'entrance'
   const [currentStep, setCurrentStep] = useState('intro');
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isExiting, setIsExiting] = useState(false);
@@ -62,7 +66,7 @@ const Quote = () => {
 
           <div className="mb-6 px-1">
             <h1 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white">
-What type of property do you have?* </h1>
+              What type of property do you have?* </h1>
             <div className="w-10 h-0.5 bg-yellow-400 mt-2 rounded-full" />
           </div>
 
@@ -82,27 +86,36 @@ What type of property do you have?* </h1>
 
       {/* STEP 2: Individual Flow Transitions */}
       <div className={`w-full max-w-4xl ${currentStep !== 'entrance' && currentStep !== 'intro' ? 'block' : 'hidden'}`}>
+        
         {currentStep === 'detached' && (
-          <DetachedFlow
-            propertyInfo={propertyData['detached']}
-            onBack={handleBackToStart}
-          />
+          <DetachedFlow propertyInfo={propertyData['detached']} onBack={handleBackToStart} />
         )}
 
-        {/* Fallback for other unfinished flows */}
-        {currentStep !== 'entrance' && currentStep !== 'intro' && currentStep !== 'detached' && (
-          <div className="p-10 rounded-[2rem] animate-in zoom-in-95">
-            <img src={propertyData[currentStep]?.img} className="w-20 h-20 mb-6 opacity-20" alt="" />
-            <h2 className="text-sm font-black text-white/30 uppercase tracking-widest mb-6">
-              {propertyData[currentStep]?.title} Flow Coming Soon
-            </h2>
-            <button
-              onClick={handleBackToStart}
-              className="px-6 py-3 bg-yellow-400 text-[#010191] text-[10px] font-black rounded-xl uppercase tracking-widest hover:bg-white transition-colors"
-            >
-              Go Back
-            </button>
-          </div>
+        {currentStep === 'semi-detached' && (
+          <SemiDetachedFlow propertyInfo={propertyData['semi-detached']} onBack={handleBackToStart} />
+        )}
+
+        {currentStep === 'terraced' && (
+          <TerracedFlow propertyInfo={propertyData['terraced']} onBack={handleBackToStart} />
+        )}
+
+        {currentStep === 'town-house' && (
+          <TownHouseFlow propertyInfo={propertyData['town-house']} onBack={handleBackToStart} />
+        )}
+
+        {currentStep === 'bungalow' && (
+          <BungalowFlow propertyInfo={propertyData['bungalow']} onBack={handleBackToStart} />
+        )}
+
+        {currentStep === 'flat' && (
+          <FlatFlow propertyInfo={propertyData['flat']} onBack={handleBackToStart} />
+        )}
+
+        {/* Catch-all fallback if a property key is missing a component */}
+        {!propertyData[currentStep] && currentStep !== 'entrance' && currentStep !== 'intro' && (
+           <div className="p-10 text-center">
+             <button onClick={handleBackToStart} className="text-yellow-400 underline">Go Back</button>
+           </div>
         )}
       </div>
     </div>
