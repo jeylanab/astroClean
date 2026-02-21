@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { pricingData } from '../data/pricingData';
+import { pricingData } from '../data/pricingConfig';
 
 const Home = () => {
   const [step, setStep] = useState(0); // 0 is the "Start" screen
