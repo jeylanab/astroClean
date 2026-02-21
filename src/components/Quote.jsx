@@ -62,8 +62,7 @@ const Quote = () => {
 
           <div className="mb-6 px-1">
             <h1 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white">
-              Choose Property
-            </h1>
+What type of property do you have?* </h1>
             <div className="w-10 h-0.5 bg-yellow-400 mt-2 rounded-full" />
           </div>
 
