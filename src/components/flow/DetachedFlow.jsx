@@ -253,7 +253,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 11: Rear Access */}
       {step === 11 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Rear Access?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Can we access the rear windows without coming through your property, i.e. through a back gate?*</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full flex-1">
             <button onClick={() => { setFormData({ ...formData, rearAccess: true }); next(); }}
               className="drop-in drop-in-2 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-yellow-400 hover:bg-yellow-400/10 transition-all flex flex-col items-center group">
