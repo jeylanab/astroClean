@@ -98,13 +98,19 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
   const priceMonthly = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
 
   // Shared class strings for the theme
-  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-yellow-400 hover:bg-yellow-400/10 transition-all font-bold text-left group cursor-pointer";
-  const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-white/20 text-white group-hover:bg-yellow-400 group-hover:text-[#010191]";
-  const btnPrimary = "bg-yellow-400 text-[#010191] p-4 rounded-xl font-black uppercase hover:bg-white active:scale-95 transition-all text-sm tracking-wide";
+  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-left group cursor-pointer";
+  const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-white/20 text-white group-hover:bg-green-400 group-hover:text-[#010191]";
+
+  // New yes/no card button style — both same green card style
+  const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-green-400/30 bg-green-400/10 hover:bg-green-400/20 hover:border-green-400 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
+  const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-green-400/20 text-green-400 group-hover:bg-green-400 group-hover:text-[#010191] transition-colors";
+  const yesNoLabel = "text-base font-black uppercase tracking-wide text-green-400 group-hover:text-green-300 transition-colors";
+
+  const btnPrimary = "bg-green-400 text-[#010191] p-4 rounded-xl font-black uppercase hover:bg-white active:scale-95 transition-all text-sm tracking-wide";
   const btnSecondary = "bg-white/5 border border-white/10 p-4 rounded-xl font-bold uppercase text-white/40 hover:bg-white/10 hover:text-white/70 active:scale-95 transition-all text-sm";
-  const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-yellow-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
+  const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-green-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
   const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
-  const confirmBtn = "bg-yellow-400 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-white transition-colors";
+  const confirmBtn = "bg-green-400 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-white transition-colors";
   const errMsg = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
 
   return (
@@ -124,7 +130,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
                 }}
                 className={`${cardBase} drop-in drop-in-${i + 2}`}>
                 <span className={letterBadge}>{String.fromCharCode(65 + i)}</span>
-                <span className="text-base text-white/80 group-hover:text-yellow-400 transition-colors">{opt} Bedrooms</span>
+                <span className="text-base text-white/80 group-hover:text-green-400 transition-colors">{opt} Bedrooms</span>
               </button>
             ))}
           </div>
@@ -145,10 +151,10 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
           <div className="flex flex-col gap-3 max-w-md">
             <button
               onClick={() => setStep(13)}
-              className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-yellow-400 bg-yellow-400/10 hover:bg-yellow-400 group transition-all text-left flex gap-4 items-center"
+              className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-green-400 bg-green-400/10 hover:bg-green-400 group transition-all text-left flex gap-4 items-center"
             >
-              <span className="bg-yellow-400 text-[#010191] group-hover:bg-[#010191] group-hover:text-yellow-400 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
-              <span className="font-black uppercase text-[11px] tracking-tight text-yellow-400 group-hover:text-[#010191] transition-colors">
+              <span className="bg-green-400 text-[#010191] group-hover:bg-[#010191] group-hover:text-green-400 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
+              <span className="font-black uppercase text-[11px] tracking-tight text-green-400 group-hover:text-[#010191] transition-colors">
                 Yes, get in touch to confirm my price!
               </span>
             </button>
@@ -173,8 +179,14 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
             <img src={extentionImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
           <div className="flex flex-col gap-2 w-full max-w-sm">
-            <button onClick={() => { setFormData({ ...formData, hasExtension: true }); next(); }} className={`${btnPrimary} drop-in drop-in-3`}>Yes</button>
-            <button onClick={() => { setFormData({ ...formData, hasExtension: false }); setStep(5); }} className={`${btnSecondary} drop-in drop-in-4`}>No extension</button>
+            <button onClick={() => { setFormData({ ...formData, hasExtension: true }); next(); }} className={`${yesNoBtn} drop-in drop-in-3`}>
+              <span className={yesNoBadge}>Y</span>
+              <span className={yesNoLabel}>Yes</span>
+            </button>
+            <button onClick={() => { setFormData({ ...formData, hasExtension: false }); setStep(5); }} className={`${yesNoBtn} drop-in drop-in-4`}>
+              <span className={yesNoBadge}>N</span>
+              <span className={yesNoLabel}>No Extension</span>
+            </button>
           </div>
         </div>
       )}
@@ -183,13 +195,13 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
       {step === 4 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-1 text-white">What type of extension does your property have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-yellow-400 uppercase mb-6 tracking-widest">Select multiple if needed</p>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-green-400 uppercase mb-6 tracking-widest">Select multiple if needed</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full flex-1">
             {[{ id: 'loft', title: 'Loft', img: loftImg }, { id: 'side', title: 'Side', img: sideImg }, { id: 'rear', title: 'Rear', img: rearImg }].map((item, i) => (
               <button key={item.id} onClick={() => { toggleExtension(item.id); setErrors(e => ({ ...e, extensionTypes: '' })); }}
-                className={`drop-in drop-in-${i + 3} p-4 rounded-2xl border transition-all flex flex-col items-center justify-center ${formData.extensionTypes.includes(item.id) ? 'border-yellow-400 bg-yellow-400/10 shadow-lg shadow-yellow-400/10' : 'border-white/10 bg-white/5'}`}>
+                className={`drop-in drop-in-${i + 3} p-4 rounded-2xl border transition-all flex flex-col items-center justify-center ${formData.extensionTypes.includes(item.id) ? 'border-green-400 bg-green-400/10 shadow-lg shadow-green-400/10' : 'border-white/10 bg-white/5'}`}>
                 <img src={item.img} alt="" className="h-16 md:h-24 object-contain mb-3" />
-                <span className={`font-black uppercase text-[10px] tracking-tighter ${formData.extensionTypes.includes(item.id) ? 'text-yellow-400' : 'text-white/60'}`}>{item.title}</span>
+                <span className={`font-black uppercase text-[10px] tracking-tighter ${formData.extensionTypes.includes(item.id) ? 'text-green-400' : 'text-white/60'}`}>{item.title}</span>
               </button>
             ))}
           </div>
@@ -214,8 +226,14 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
             <img src={skylanternImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
           <div className="flex flex-col gap-2 w-full max-w-sm">
-            <button onClick={() => { setFormData({ ...formData, hasSkylantern: true }); next(); }} className={`${btnPrimary} drop-in drop-in-3`}>Yes</button>
-            <button onClick={() => { setFormData({ ...formData, hasSkylantern: false }); setStep(7); }} className={`${btnSecondary} drop-in drop-in-4`}>No</button>
+            <button onClick={() => { setFormData({ ...formData, hasSkylantern: true }); next(); }} className={`${yesNoBtn} drop-in drop-in-3`}>
+              <span className={yesNoBadge}>Y</span>
+              <span className={yesNoLabel}>Yes</span>
+            </button>
+            <button onClick={() => { setFormData({ ...formData, hasSkylantern: false }); setStep(7); }} className={`${yesNoBtn} drop-in drop-in-4`}>
+              <span className={yesNoBadge}>N</span>
+              <span className={yesNoLabel}>No</span>
+            </button>
           </div>
         </div>
       )}
@@ -227,8 +245,8 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
           <div className="grid grid-cols-2 gap-2 max-w-md w-full">
             {['1', '2', '3', '4+'].map((opt, i) => (
               <button key={opt} onClick={() => { setFormData({ ...formData, skylanternCount: opt }); next(); }}
-                className={`drop-in drop-in-${i + 2} p-4 rounded-xl border border-white/10 bg-white/5 hover:border-yellow-400 hover:bg-yellow-400/10 transition-all font-bold text-center group`}>
-                <span className="text-lg text-white group-hover:text-yellow-400 transition-colors">{opt}</span>
+                className={`drop-in drop-in-${i + 2} p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-center group`}>
+                <span className="text-lg text-white group-hover:text-green-400 transition-colors">{opt}</span>
               </button>
             ))}
           </div>
@@ -238,14 +256,19 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 7: Conservatory Check */}
       {step === 7 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Does your property have a conservatory?*
-</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Does your property have a conservatory?*</h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
             <img src={conservatoryImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
           <div className="flex flex-col gap-2 w-full max-w-sm">
-            <button onClick={() => { setFormData({ ...formData, hasConservatory: true }); next(); }} className={`${btnPrimary} drop-in drop-in-3`}>Yes</button>
-            <button onClick={() => { setFormData({ ...formData, hasConservatory: false }); setStep(9); }} className={`${btnSecondary} drop-in drop-in-4`}>No</button>
+            <button onClick={() => { setFormData({ ...formData, hasConservatory: true }); next(); }} className={`${yesNoBtn} drop-in drop-in-3`}>
+              <span className={yesNoBadge}>Y</span>
+              <span className={yesNoLabel}>Yes</span>
+            </button>
+            <button onClick={() => { setFormData({ ...formData, hasConservatory: false }); setStep(9); }} className={`${yesNoBtn} drop-in drop-in-4`}>
+              <span className={yesNoBadge}>N</span>
+              <span className={yesNoLabel}>No</span>
+            </button>
           </div>
         </div>
       )}
@@ -277,8 +300,14 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
             <img src={veluxImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
           <div className="flex flex-col gap-2 w-full max-w-sm">
-            <button onClick={() => { setFormData({ ...formData, hasVelux: true }); next(); }} className={`${btnPrimary} drop-in drop-in-3`}>Yes</button>
-            <button onClick={() => { setFormData({ ...formData, hasVelux: false }); setStep(11); }} className={`${btnSecondary} drop-in drop-in-4`}>No</button>
+            <button onClick={() => { setFormData({ ...formData, hasVelux: true }); next(); }} className={`${yesNoBtn} drop-in drop-in-3`}>
+              <span className={yesNoBadge}>Y</span>
+              <span className={yesNoLabel}>Yes</span>
+            </button>
+            <button onClick={() => { setFormData({ ...formData, hasVelux: false }); setStep(11); }} className={`${yesNoBtn} drop-in drop-in-4`}>
+              <span className={yesNoBadge}>N</span>
+              <span className={yesNoLabel}>No</span>
+            </button>
           </div>
         </div>
       )}
@@ -308,14 +337,14 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Can we access the rear windows without coming through your property, i.e. through a back gate?*</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full flex-1">
             <button onClick={() => { setFormData({ ...formData, rearAccess: true }); next(); }}
-              className="drop-in drop-in-2 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-yellow-400 hover:bg-yellow-400/10 transition-all flex flex-col items-center group">
+              className="drop-in drop-in-2 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all flex flex-col items-center group">
               <img src={gate1Img} alt="" className="h-24 md:h-32 object-contain mb-4 group-hover:scale-105 transition-transform" />
-              <span className="font-black uppercase text-sm text-white/70 group-hover:text-yellow-400 transition-colors">Yes, via gate</span>
+              <span className="font-black uppercase text-sm text-white/70 group-hover:text-green-400 transition-colors">Yes, via gate</span>
             </button>
             <button onClick={() => { setFormData({ ...formData, rearAccess: false }); next(); }}
-              className="drop-in drop-in-3 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-yellow-400 hover:bg-yellow-400/10 transition-all flex flex-col items-center group">
+              className="drop-in drop-in-3 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all flex flex-col items-center group">
               <img src={gate0Img} alt="" className="h-24 md:h-32 object-contain mb-4 group-hover:scale-105 transition-transform" />
-              <span className="font-black uppercase text-sm text-white/70 group-hover:text-yellow-400 transition-colors">No Access</span>
+              <span className="font-black uppercase text-sm text-white/70 group-hover:text-green-400 transition-colors">No Access</span>
             </button>
           </div>
         </div>
@@ -328,12 +357,12 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
           <p className="drop-in drop-in-2 text-[10px] font-bold text-white/40 mb-8 uppercase tracking-widest">Select Frequency</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Monthly */}
-            <div onClick={next} className="drop-in drop-in-3 bg-yellow-400 p-6 rounded-3xl border-2 border-yellow-400 cursor-pointer hover:shadow-2xl hover:shadow-yellow-400/20 relative group transition-all">
-              <div className="absolute -top-3 left-6 bg-[#010191] text-yellow-400 border border-yellow-400 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
+            <div onClick={next} className="drop-in drop-in-3 bg-green-400 p-6 rounded-3xl border-2 border-green-400 cursor-pointer hover:shadow-2xl hover:shadow-green-400/20 relative group transition-all">
+              <div className="absolute -top-3 left-6 bg-[#010191] text-green-400 border border-green-400 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
               <p className="uppercase font-black text-[10px] mb-2 text-[#010191]/60">Monthly</p>
               <h3 className="text-4xl font-black mb-1 text-[#010191]">£{priceMonthly}</h3>
               <p className="text-[10px] font-black text-[#010191]/60 uppercase">Save £4</p>
-              <div className="mt-4 bg-[#010191] text-yellow-400 py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-white group-hover:text-[#010191] transition-colors">Select</div>
+              <div className="mt-4 bg-[#010191] text-green-400 py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-white group-hover:text-[#010191] transition-colors">Select</div>
             </div>
             {/* 2-Monthly */}
             <div onClick={next} className="drop-in drop-in-4 bg-white/5 p-6 rounded-3xl border border-white/10 cursor-pointer hover:border-white/30 transition-all group">
@@ -373,7 +402,6 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
               />
               {errors.phone && <p key={shakeKey} className={`${errMsg} shake`}>{errors.phone}</p>}
             </div>
-            <input type="email" placeholder="Email Address" id="input-email" className={`${inputBase} drop-in drop-in-4 text-xl`} />
             <button
               onClick={() => {
                 const firstName = document.getElementById('input-firstName')?.value?.trim();
@@ -389,7 +417,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
                   next();
                 }
               }}
-              className="drop-in drop-in-5 bg-yellow-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-white transition-all uppercase tracking-wide"
+              className="drop-in drop-in-5 bg-green-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-white transition-all uppercase tracking-wide"
             >Next</button>
           </div>
         </div>
@@ -426,7 +454,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
                   next();
                 }
               }}
-              className="drop-in drop-in-4 bg-yellow-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-white transition-all tracking-wide"
+              className="drop-in drop-in-4 bg-green-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-white transition-all tracking-wide"
             >Book Now</button>
           </div>
         </div>
@@ -435,7 +463,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
       {/* Final Step: Success */}
       {step === 15 && (
         <div className="flex flex-col items-start justify-center py-8 space-y-4">
-          <div className="drop-in drop-in-1 w-16 h-16 bg-yellow-400 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-yellow-400/30 animate-bounce font-black">✓</div>
+          <div className="drop-in drop-in-1 w-16 h-16 bg-green-400 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-green-400/30 animate-bounce font-black">✓</div>
           <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-white">Confirmed!</h2>
           <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">Thank you for joining the Window Brothers family!</p>
           <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">We'll be in touch within 24 hours with the date of your first clean.</p>
@@ -448,7 +476,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
           <button onClick={prev} className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
           </button>
-          <button onClick={next} className="bg-yellow-400 text-[#010191] p-3 rounded-xl hover:bg-white transition-all shadow-md active:scale-90">
+          <button onClick={next} className="bg-green-400 text-[#010191] p-3 rounded-xl hover:bg-white transition-all shadow-md active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
         </div>

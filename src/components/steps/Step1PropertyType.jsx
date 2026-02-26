@@ -47,7 +47,7 @@ const Step1PropertyType = ({ selected, onSelect, onNext }) => {
               {/* Key Badge: Flex-shrink-0 ensures it stays a perfect square */}
               <span className={`flex-shrink-0 w-6 h-6 md:w-7 md:h-7 flex items-center justify-center rounded-md font-black text-[10px] md:text-xs transition-all
                 ${selected?.id === item.id 
-                  ? 'bg-black text-[#FFD700]' 
+                  ? 'bg-black text-[#009933]' 
                   : 'bg-black/10 text-white group-hover:bg-black/20'}`}>
                 {item.key}
               </span>

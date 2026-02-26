@@ -6,13 +6,12 @@ const Step0Intro = ({ onStart }) => {
       
       {/* Simple Centered Message */}
       <p className="text-lg md:text-xl text-white font-black mb-10 max-w-lg uppercase tracking-tight leading-tight">
-        Answer a few quick questions about your property and we'll instantly calculate a window cleaning price for you!
-      </p>
+ANSWER A FEW QUICK QUESTIONS ABOUT YOUR PROPERTY TO CALCULATE AN INSTANT WINDOW CLEANING PRICE !      </p>
       
       {/* Yellow Button with Black Text */}
       <button 
         onClick={onStart}
-        className="group flex items-center justify-center gap-4 bg-[#FFD700] hover:bg-white text-black font-black py-5 px-16 rounded-xl text-sm transition-all shadow-xl active:scale-95 uppercase tracking-widest border-2 border-black/5"
+        className="group flex items-center justify-center gap-4 bg-[#009933] hover:bg-white text-black font-black py-5 px-16 rounded-xl text-sm transition-all shadow-xl active:scale-95 uppercase tracking-widest border-2 border-black/5"
       >
         Start
         <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
