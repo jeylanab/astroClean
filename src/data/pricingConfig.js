@@ -5,7 +5,7 @@ export const pricingConfig = {
   basePrices: {
     detached: {
       '1-2': 28,
-      '3': 32,
+      '3': 24,
       '4': 38,
       '5': 45,
       '6+': 55,
