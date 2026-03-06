@@ -455,26 +455,63 @@ Monthly  (save £4) : £${priceMonthly}/clean
 
       {/* Step 14: Final Price */}
       {step === 14 && (
-        <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-blue">Instant Quote</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue/40 mb-8 uppercase tracking-widest">Select Frequency</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-            {/* Monthly */}
-            <div onClick={next} className="drop-in drop-in-3 bg-white-700 p-6 rounded-3xl border-2 border-blue-700 cursor-pointer hover:shadow-2xl hover:shadow-blue-700/20 relative group transition-all">
-              <div className="absolute -top-3 left-6 bg-[#010191] text-white-700 border border-blue-700 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
-              <p className="uppercase font-black text-[10px] mb-2 text-[#010191]/60">Monthly</p>
-              <h3 className="text-4xl font-black mb-1 text-[#010191]">£{priceMonthly}</h3>
-              <p className="text-[10px] font-black text-[#010191]/60 uppercase">Save £4</p>
-              <div className="mt-4 bg-[#010191] text-white py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-blue group-hover:text-[#4b4be8] transition-colors">Select</div>
-            </div>
-            {/* 2-Monthly */}
-            <div onClick={next} className="drop-in drop-in-4 bg-blue/5 p-6 rounded-3xl border border-blue/10 cursor-pointer hover:border-blue/30 transition-all group">
-              <p className="uppercase font-black text-[10px] mb-2 text-blue/40">2-Monthly</p>
-              <h3 className="text-4xl font-black mb-1 text-blue">£{price2Monthly}</h3>
-              <div className="mt-4 border border-blue/20 py-2 rounded-lg font-black uppercase text-xs text-blue/50 text-center group-hover:bg-blue group-hover:text-[#1515b8] transition-all">Select</div>
-            </div>
-          </div>
-        </div>
+<div className="flex flex-col h-full">
+  <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-green-700">
+    Instant Quote
+  </h2>
+
+  <p className="drop-in drop-in-2 text-[10px] font-bold text-green-700/40 mb-8 uppercase tracking-widest">
+    Select Frequency
+  </p>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+
+    {/* Monthly */}
+    <div
+      onClick={next}
+      className="drop-in drop-in-3 bg-green-50 p-6 rounded-3xl border-2 border-green-400 cursor-pointer hover:shadow-2xl hover:shadow-green-400/30 relative group transition-all"
+    >
+      <div className="absolute -top-3 left-6 bg-green-500 text-white px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">
+        Popular
+      </div>
+
+      <p className="uppercase font-black text-[10px] mb-2 text-green-700/70">
+        Monthly
+      </p>
+
+      <h3 className="text-4xl font-black mb-1 text-green-600">
+        £{priceMonthly}
+      </h3>
+
+      <p className="text-[10px] font-black text-green-700/50 uppercase">
+        Save £4
+      </p>
+
+      <div className="mt-4 bg-green-500 text-white py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-green-600 transition-colors">
+        Select
+      </div>
+    </div>
+
+    {/* 2-Monthly */}
+    <div
+      onClick={next}
+      className="drop-in drop-in-4 bg-green-50 p-6 rounded-3xl border border-green-300 cursor-pointer hover:border-green-500 transition-all group"
+    >
+      <p className="uppercase font-black text-[10px] mb-2 text-green-700">
+        2-Monthly
+      </p>
+
+      <h3 className="text-4xl font-black mb-1 text-green-600">
+        £{price2Monthly}
+      </h3>
+
+      <div className="mt-4 border border-green-300 py-2 rounded-lg font-black uppercase text-xs text-green-600 text-center group-hover:bg-green-500 group-hover:text-white transition-all">
+        Select
+      </div>
+    </div>
+
+  </div>
+</div>
       )}
 
       {/* Step 15: Contact Details */}
