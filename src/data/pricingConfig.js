@@ -39,7 +39,7 @@ export const pricingConfig = {
       '6+': 38,
     },
     flat: {
-  '1-2': 28,
+      '1-2': 28,
       '3': 32,
       '4': 38,
       '5': 45,
@@ -49,23 +49,20 @@ export const pricingConfig = {
 
   // Add-on prices (Fixed rates)
   extras: {
-    extension: 5,        // Flat fee if they have an extension
-    skylantern: 4,       // Price per skylantern
-    velux: 2,            // Price per velux window
-    conservatoryPanel: 1.50, // Price per glass panel
-    bifold: 1,           // Price per bifold door
+    extension: 5,
+    skylantern: 4,
+    velux: 2,
+    conservatoryPanel: 1.50,
+    bifold: 1,
+    noRearAccess: 5,      // Surcharge when cleaner must go through property
   },
 
   // Frequency Logic
   frequency: {
-    monthlyDiscount: 4,  // Monthly price = 2-Monthly price MINUS £4
+    monthlyDiscount: 4,
   }
 };
 
-/**
- * Helper function to calculate the final price
- * @param {Object} data - The formData from your component state
- */
 export const calculateTotal = (data) => {
   if (!data.propertyType || !data.bedrooms) return 0;
 
@@ -94,11 +91,16 @@ export const calculateTotal = (data) => {
     const count = parseInt(data.conservatoryPanels) || 0;
     total += (count * pricingConfig.extras.conservatoryPanel);
   }
-  
+
   // 6. Add Bifold Doors
   if (data.hasBifold && data.bifoldCount) {
     const count = parseInt(data.bifoldCount) || 0;
     total += (count * pricingConfig.extras.bifold);
+  }
+
+  // 7. No rear access surcharge
+  if (data.rearAccess === false) {
+    total += pricingConfig.extras.noRearAccess;
   }
 
   return total;

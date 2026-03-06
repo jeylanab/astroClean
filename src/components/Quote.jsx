@@ -49,7 +49,7 @@ const Quote = () => {
   };
 
   return (
-    <div className="w-full min-h-[100dvh] flex items-center justify-center p-3 md:p-8 font-sans overflow-x-hidden text-white">
+    <div className="w-full min-h-[100dvh] flex items-center justify-center p-3 md:p-8 font-sans overflow-x-hidden text-[#010191]">
 
       {/* STEP 0: Intro Screen */}
       {currentStep === 'intro' && (
@@ -65,12 +65,12 @@ const Quote = () => {
           animate-in fade-in slide-in-from-bottom-4`}>
 
           <div className="mb-6 px-1">
-            <h1 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white">
+            <h1 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#010191]">
               What type of property do you have?* </h1>
-            <div className="w-10 h-0.5 bg-yellow-400 mt-2 rounded-full" />
+            <div className="w-10 h-0.5 bg-blue-500 mt-2 rounded-full" />
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-10">
+          <div className="bg-blue/5 border border-blue/10 rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-10">
             <Step1PropertyType
               selected={selectedProperty}
               onSelect={setSelectedProperty}
@@ -78,7 +78,7 @@ const Quote = () => {
             />
           </div>
 
-          <p className="text-left text-[9px] font-bold text-white/20 mt-4 uppercase tracking-widest px-1">
+          <p className="text-left text-[9px] font-bold text-blue/20 mt-4 uppercase tracking-widest px-1">
             Select a type to continue automatically
           </p>
         </div>
@@ -114,7 +114,7 @@ const Quote = () => {
         {/* Catch-all fallback if a property key is missing a component */}
         {!propertyData[currentStep] && currentStep !== 'entrance' && currentStep !== 'intro' && (
            <div className="p-10 text-center">
-             <button onClick={handleBackToStart} className="text-yellow-400 underline">Go Back</button>
+             <button onClick={handleBackToStart} className="text-blue-500 underline">Go Back</button>
            </div>
         )}
       </div>

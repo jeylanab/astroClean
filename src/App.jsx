@@ -3,7 +3,7 @@ import Quote from './components/Quote';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#010191]">
+    <div className="min-h-screen bg-[#f8f8ff]">
       
       {/* 1. FLOWING BAR CONTAINER */}
       <div className="flex flex-col items-center pt-12">

@@ -100,24 +100,24 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
   const priceMonthly = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
 
   // Shared class strings
-  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-left group cursor-pointer";
-  const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-white/20 text-white group-hover:bg-green-400 group-hover:text-[#010191]";
-  const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-green-400/30 bg-green-400/10 hover:bg-green-400/20 hover:border-green-400 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
-  const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-green-400/20 text-green-400 group-hover:bg-green-400 group-hover:text-[#010191] transition-colors";
-  const yesNoLabel = "text-base font-black uppercase tracking-wide text-green-400 group-hover:text-green-300 transition-colors";
-  const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-green-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
-  const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
-  const confirmBtn = "bg-green-400 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-white transition-colors";
+  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all font-bold text-left group cursor-pointer";
+  const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-blue/20 text-blue group-hover:bg-blue-700 group-hover:text-[#010191]";
+  const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-blue-700/30 bg-blue-700/10 hover:bg-blue-700/20 hover:border-blue-700 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
+  const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-blue-700/20 text-blue-700 group-hover:bg-blue-700 group-hover:text-[#010191] transition-colors";
+  const yesNoLabel = "text-base font-black uppercase tracking-wide text-blue-700 group-hover:text-blue-700 transition-colors";
+  const inputBase = "bg-transparent border-b-2 border-blue/20 focus:border-blue-700 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
+  const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
+  const confirmBtn = "bg-blue-700 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-blue transition-colors";
   const errMsg = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 text-white">
+    <div className="w-full max-w-4xl mx-auto px-4 text-blue">
       <style>{animStyles}</style>
 
       {/* Step 2: Bedrooms */}
       {step === 2 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 leading-tight text-white">Number of bedrooms?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 leading-tight text-blue">Number of bedrooms?*</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-2xl w-full">
             {['1-2', '3', '4', '5', '6+'].map((opt, i) => (
               <button key={opt}
@@ -127,7 +127,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
                 }}
                 className={`${cardBase} drop-in drop-in-${i + 2}`}>
                 <span className={letterBadge}>{String.fromCharCode(65 + i)}</span>
-                <span className="text-base text-white/80 group-hover:text-green-400 transition-colors">{opt} Bedrooms</span>
+                <span className="text-base text-blue/80 group-hover:text-blue-700 transition-colors">{opt} Bedrooms</span>
               </button>
             ))}
           </div>
@@ -138,29 +138,29 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {step === 2.5 && (
         <div className="flex flex-col h-full">
           <div className="mb-8">
-            <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-4 leading-tight text-white">
+            <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-4 leading-tight text-blue">
               Because your property has 5+ rooms, we'll just need a tad longer to finalise your quote.
             </h2>
-            <h4 className="drop-in drop-in-2 text-sm font-bold text-white/50 leading-relaxed tracking-tight italic">
+            <h4 className="drop-in drop-in-2 text-sm font-bold text-blue/50 leading-relaxed tracking-tight italic">
               Click below and we'll contact you shortly to confirm your price!
             </h4>
           </div>
           <div className="flex flex-col gap-3 max-w-md">
             <button
               onClick={() => setStep(15)}
-              className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-green-400 bg-green-400/10 hover:bg-green-400 group transition-all text-left flex gap-4 items-center"
+              className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-blue-700 bg-blue-700/10 hover:bg-blue-700 group transition-all text-left flex gap-4 items-center"
             >
-              <span className="bg-green-400 text-[#010191] group-hover:bg-[#010191] group-hover:text-green-400 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
-              <span className="font-black uppercase text-[11px] tracking-tight text-green-400 group-hover:text-[#010191] transition-colors">
+              <span className="bg-blue-700 text-[#010191] group-hover:bg-[#010191] group-hover:text-blue-700 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
+              <span className="font-black uppercase text-[11px] tracking-tight text-blue-700 group-hover:text-[#010191] transition-colors">
                 Yes, get in touch to confirm my price!
               </span>
             </button>
             <button
               onClick={onBack}
-              className="drop-in drop-in-4 w-full p-5 rounded-2xl border-2 border-white/10 bg-white/5 hover:border-red-400 transition-all text-left group flex gap-4 items-center"
+              className="drop-in drop-in-4 w-full p-5 rounded-2xl border-2 border-blue/10 bg-blue/5 hover:border-red-400 transition-all text-left group flex gap-4 items-center"
             >
-              <span className="bg-white/10 text-white/40 group-hover:bg-red-500 group-hover:text-white w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">B</span>
-              <span className="font-black uppercase text-[11px] tracking-tight text-white/40 group-hover:text-red-400 transition-colors">
+              <span className="bg-blue/10 text-blue/40 group-hover:bg-red-500 group-hover:text-blue w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">B</span>
+              <span className="font-black uppercase text-[11px] tracking-tight text-blue/40 group-hover:text-red-400 transition-colors">
                 No, thank you!
               </span>
             </button>
@@ -171,7 +171,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 3: Extension Check */}
       {step === 3 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Does your property have an extension?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-blue leading-tight">Does your property have an extension?*</h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
             <img src={extentionImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
@@ -191,14 +191,14 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 4: Extension Types */}
       {step === 4 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-1 text-white">What type of extension does your property have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-green-400 uppercase mb-6 tracking-widest">Select multiple if needed</p>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-1 text-blue">What type of extension does your property have?*</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue-700 uppercase mb-6 tracking-widest">Select multiple if needed</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full flex-1">
             {[{ id: 'loft', title: 'Loft', img: loftImg }, { id: 'side', title: 'Side', img: sideImg }, { id: 'rear', title: 'Rear', img: rearImg }].map((item, i) => (
               <button key={item.id} onClick={() => { toggleExtension(item.id); setErrors(e => ({ ...e, extensionTypes: '' })); }}
-                className={`drop-in drop-in-${i + 3} p-4 rounded-2xl border transition-all flex flex-col items-center justify-center ${formData.extensionTypes.includes(item.id) ? 'border-green-400 bg-green-400/10 shadow-lg shadow-green-400/10' : 'border-white/10 bg-white/5'}`}>
+                className={`drop-in drop-in-${i + 3} p-4 rounded-2xl border transition-all flex flex-col items-center justify-center ${formData.extensionTypes.includes(item.id) ? 'border-blue-700 bg-blue-700/10 shadow-lg shadow-blue-700/10' : 'border-blue/10 bg-blue/5'}`}>
                 <img src={item.img} alt="" className="h-16 md:h-24 object-contain mb-3" />
-                <span className={`font-black uppercase text-[10px] tracking-tighter ${formData.extensionTypes.includes(item.id) ? 'text-green-400' : 'text-white/60'}`}>{item.title}</span>
+                <span className={`font-black uppercase text-[10px] tracking-tighter ${formData.extensionTypes.includes(item.id) ? 'text-blue-700' : 'text-blue/60'}`}>{item.title}</span>
               </button>
             ))}
           </div>
@@ -218,7 +218,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 5: Skylantern Check */}
       {step === 5 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Does your property have a skylantern?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-blue leading-tight">Does your property have a skylantern?*</h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
             <img src={skylanternImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
@@ -238,12 +238,12 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 6: Skylantern Count */}
       {step === 6 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 leading-tight text-white">How many skylanterns does your property have?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 leading-tight text-blue">How many skylanterns does your property have?*</h2>
           <div className="grid grid-cols-2 gap-2 max-w-md w-full">
             {['1', '2', '3', '4+'].map((opt, i) => (
               <button key={opt} onClick={() => { setFormData({ ...formData, skylanternCount: opt }); next(); }}
-                className={`drop-in drop-in-${i + 2} p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-center group`}>
-                <span className="text-lg text-white group-hover:text-green-400 transition-colors">{opt}</span>
+                className={`drop-in drop-in-${i + 2} p-4 rounded-xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all font-bold text-center group`}>
+                <span className="text-lg text-blue group-hover:text-blue-700 transition-colors">{opt}</span>
               </button>
             ))}
           </div>
@@ -253,7 +253,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 7: Conservatory Check */}
       {step === 7 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Does your property have a conservatory?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-blue leading-tight">Does your property have a conservatory?*</h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
             <img src={conservatoryImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
@@ -273,8 +273,8 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 8: Conservatory Panels */}
       {step === 8 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many glass panels does your conservatory have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 max-w-xs">Count the whole panel from floor to ceiling as one panel. Please don't include your roof panels as we don't offer roof cleaning as a service.</p>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-blue">How many glass panels does your conservatory have?*</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue mb-8 max-w-xs">Count the whole panel from floor to ceiling as one panel. Please don't include your roof panels as we don't offer roof cleaning as a service.</p>
           <div className="drop-in drop-in-3">
             <input
               type="number"
@@ -292,7 +292,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 9: Velux Check */}
       {step === 9 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Does your property have any velux windows?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-blue leading-tight">Does your property have any velux windows?*</h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
             <img src={veluxImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
@@ -312,8 +312,8 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 10: Velux Count */}
       {step === 10 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many velux windows does your property have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8">Please only include velux windows we can reach from ground level.</p>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-blue">How many velux windows does your property have?*</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue mb-8">Please only include velux windows we can reach from ground level.</p>
           <div className="drop-in drop-in-3">
             <input
               type="number"
@@ -331,7 +331,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 11: Bifold Check */}
       {step === 11 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Do you have any bifold doors?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-blue leading-tight">Do you have any bifold / patio doors?*</h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
             <img src={bifold} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="Bifold doors" />
           </div>
@@ -351,8 +351,8 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 12: Bifold Panel Count */}
       {step === 12 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many glass panels of bifold door do you have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 max-w-xs">Count each individual glass panel across all your bifold doors. A standard bifold door typically has 3–6 panels.</p>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-blue">How many glass panels of bifold / patio door do you have?*</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue mb-8 max-w-xs">Count each individual glass panel across all your bifold doors. A standard bifold door typically has 3–6 panels.</p>
           <div className="drop-in drop-in-3">
             <input
               type="number"
@@ -370,17 +370,17 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 13: Rear Access */}
       {step === 13 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Can we access the rear windows without coming through your property, i.e. through a back gate?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-blue">Can we access the rear windows without coming through your property, i.e. through a back gate?*</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full flex-1">
             <button onClick={() => { setFormData({ ...formData, rearAccess: true }); next(); }}
-              className="drop-in drop-in-2 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all flex flex-col items-center group">
+              className="drop-in drop-in-2 p-6 rounded-2xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all flex flex-col items-center group">
               <img src={gate1Img} alt="" className="h-24 md:h-32 object-contain mb-4 group-hover:scale-105 transition-transform" />
-              <span className="font-black uppercase text-sm text-white/70 group-hover:text-green-400 transition-colors">Yes, via gate</span>
+              <span className="font-black uppercase text-sm text-blue/70 group-hover:text-blue-700 transition-colors">Yes, via gate</span>
             </button>
             <button onClick={() => { setFormData({ ...formData, rearAccess: false }); next(); }}
-              className="drop-in drop-in-3 p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all flex flex-col items-center group">
+              className="drop-in drop-in-3 p-6 rounded-2xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all flex flex-col items-center group">
               <img src={gate0Img} alt="" className="h-24 md:h-32 object-contain mb-4 group-hover:scale-105 transition-transform" />
-              <span className="font-black uppercase text-sm text-white/70 group-hover:text-green-400 transition-colors">No Access</span>
+              <span className="font-black uppercase text-sm text-blue/70 group-hover:text-blue-700 transition-colors">No Access</span>
             </button>
           </div>
         </div>
@@ -389,22 +389,22 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 14: Final Price */}
       {step === 14 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-white">Instant Quote</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white/40 mb-8 uppercase tracking-widest">Select Frequency</p>
+          <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-blue">Instant Quote</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue/40 mb-8 uppercase tracking-widest">Select Frequency</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Monthly */}
-            <div onClick={next} className="drop-in drop-in-3 bg-green-400 p-6 rounded-3xl border-2 border-green-400 cursor-pointer hover:shadow-2xl hover:shadow-green-400/20 relative group transition-all">
-              <div className="absolute -top-3 left-6 bg-[#010191] text-green-400 border border-green-400 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
+            <div onClick={next} className="drop-in drop-in-3 bg-white-700 p-6 rounded-3xl border-2 border-blue-700 cursor-pointer hover:shadow-2xl hover:shadow-blue-700/20 relative group transition-all">
+              <div className="absolute -top-3 left-6 bg-[#010191] text-white-700 border border-blue-700 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
               <p className="uppercase font-black text-[10px] mb-2 text-[#010191]/60">Monthly</p>
               <h3 className="text-4xl font-black mb-1 text-[#010191]">£{priceMonthly}</h3>
               <p className="text-[10px] font-black text-[#010191]/60 uppercase">Save £4</p>
-              <div className="mt-4 bg-[#010191] text-green-400 py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-white group-hover:text-[#010191] transition-colors">Select</div>
+              <div className="mt-4 bg-[#010191] text-white py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-blue group-hover:text-[#4b4be8] transition-colors">Select</div>
             </div>
             {/* 2-Monthly */}
-            <div onClick={next} className="drop-in drop-in-4 bg-white/5 p-6 rounded-3xl border border-white/10 cursor-pointer hover:border-white/30 transition-all group">
-              <p className="uppercase font-black text-[10px] mb-2 text-white/40">2-Monthly</p>
-              <h3 className="text-4xl font-black mb-1 text-white">£{price2Monthly}</h3>
-              <div className="mt-4 border border-white/20 py-2 rounded-lg font-black uppercase text-xs text-white/50 text-center group-hover:bg-white group-hover:text-[#010191] transition-all">Select</div>
+            <div onClick={next} className="drop-in drop-in-4 bg-blue/5 p-6 rounded-3xl border border-blue/10 cursor-pointer hover:border-blue/30 transition-all group">
+              <p className="uppercase font-black text-[10px] mb-2 text-blue/40">2-Monthly</p>
+              <h3 className="text-4xl font-black mb-1 text-blue">£{price2Monthly}</h3>
+              <div className="mt-4 border border-blue/20 py-2 rounded-lg font-black uppercase text-xs text-blue/50 text-center group-hover:bg-blue group-hover:text-[#1515b8] transition-all">Select</div>
             </div>
           </div>
         </div>
@@ -413,7 +413,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 15: Contact Details */}
       {step === 15 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Your Details*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-blue">Your Details*</h2>
           <div className="grid gap-6 max-w-sm w-full">
             <div className="drop-in drop-in-2">
               <input
@@ -453,7 +453,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
                   next();
                 }
               }}
-              className="drop-in drop-in-5 bg-green-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-white transition-all uppercase tracking-wide"
+              className="drop-in drop-in-5 bg-blue-700 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-blue transition-all uppercase tracking-wide"
             >Next</button>
           </div>
         </div>
@@ -462,7 +462,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Step 16: Address */}
       {step === 16 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Address*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-blue">Address*</h2>
           <div className="grid gap-6 max-w-sm w-full">
             <div className="drop-in drop-in-2">
               <input type="text" placeholder="Address line 1*" id="input-address1" className={`${errors.address1 ? inputError : inputBase} text-lg`}
@@ -490,7 +490,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
                   next();
                 }
               }}
-              className="drop-in drop-in-4 bg-green-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-white transition-all tracking-wide"
+              className="drop-in drop-in-4 bg-blue-700 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-blue transition-all tracking-wide"
             >Book Now</button>
           </div>
         </div>
@@ -499,20 +499,20 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
       {/* Final Step: Success */}
       {step === 17 && (
         <div className="flex flex-col items-start justify-center py-8 space-y-4">
-          <div className="drop-in drop-in-1 w-16 h-16 bg-green-400 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-green-400/30 animate-bounce font-black">✓</div>
-          <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-white">Confirmed!</h2>
-          <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">Thank you for joining the Window Brothers family!</p>
-          <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">We'll be in touch within 24 hours with the date of your first clean.</p>
+          <div className="drop-in drop-in-1 w-16 h-16 bg-blue-700 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-blue-700/30 animate-bounce font-black">✓</div>
+        <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-blue">Confirmed!</h2>
+          <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">Thank you!</p>
+          <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">We'll be in touch shortly to offer you a date for the first clean.</p>
         </div>
       )}
 
       {/* Navigation Arrows — steps 2–13, excluding 2.5 and confirm-button steps (8, 10, 12) */}
       {step >= 2 && step < 16 && step !== 2.5 && step !== 8 && step !== 10 && step !== 12 && (
         <div className="absolute bottom-6 right-6 flex gap-2">
-          <button onClick={step === 2 ? onBack : prev} className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90">
+          <button onClick={step === 2 ? onBack : prev} className="bg-blue/10 text-blue/50 p-3 rounded-xl hover:bg-blue hover:text-[#010191] transition-all shadow-sm active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
           </button>
-          <button onClick={next} className="bg-green-400 text-[#010191] p-3 rounded-xl hover:bg-white transition-all shadow-md active:scale-90">
+          <button onClick={next} className="bg-blue-700 text-[#010191] p-3 rounded-xl hover:bg-blue transition-all shadow-md active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
         </div>

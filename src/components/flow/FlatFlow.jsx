@@ -55,24 +55,24 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
   const priceMonthly = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
 
   // Shared class strings
-  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-left group cursor-pointer";
-  const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-white/20 text-white group-hover:bg-green-400 group-hover:text-[#010191]";
-  const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-green-400/30 bg-green-400/10 hover:bg-green-400/20 hover:border-green-400 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
-  const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-green-400/20 text-green-400 group-hover:bg-green-400 group-hover:text-[#010191] transition-colors";
-  const yesNoLabel = "text-base font-black uppercase tracking-wide text-green-400 group-hover:text-green-300 transition-colors";
-  const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-green-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
-  const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
+  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all font-bold text-left group cursor-pointer";
+  const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-blue/20 text-blue group-hover:bg-blue-700 group-hover:text-[#010191]";
+  const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-blue-700/30 bg-blue-700/10 hover:bg-blue-700/20 hover:border-blue-700 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
+  const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-blue-700/20 text-blue-700 group-hover:bg-blue-700 group-hover:text-[#010191] transition-colors";
+  const yesNoLabel = "text-base font-black uppercase tracking-wide text-blue-700 group-hover:text-blue-700 transition-colors";
+  const inputBase = "bg-transparent border-b-2 border-blue/20 focus:border-blue-700 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
+  const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
   const errMsg = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
 
   // Dead-end screen
   const DeadEnd = ({ message }) => (
     <div className="flex flex-col items-start justify-center py-8 space-y-4">
-      <div className="drop-in drop-in-1 w-16 h-16 bg-white/10 border border-white/20 text-white/50 rounded-full flex items-center justify-center text-2xl font-black">✕</div>
-      <h2 className="drop-in drop-in-2 text-2xl md:text-3xl font-black uppercase leading-tight text-white max-w-sm">{message}</h2>
-      <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">Thank you for taking the time to reach out to us!</p>
+      <div className="drop-in drop-in-1 w-16 h-16 bg-blue/10 border border-blue/20 text-blue/50 rounded-full flex items-center justify-center text-2xl font-black">✕</div>
+      <h2 className="drop-in drop-in-2 text-2xl md:text-3xl font-black uppercase leading-tight text-blue max-w-sm">{message}</h2>
+      <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">Thank you for taking the time to reach out to us!</p>
       <button
         onClick={onBack}
-        className="drop-in drop-in-4 mt-4 bg-white/10 border border-white/10 text-white/60 py-3 px-8 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-green-400 hover:text-[#010191] hover:border-green-400 transition-all"
+        className="drop-in drop-in-4 mt-4 bg-blue/10 border border-blue/10 text-blue/60 py-3 px-8 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-blue-700 hover:text-[#010191] hover:border-blue-700 transition-all"
       >
         Go Back
       </button>
@@ -80,13 +80,13 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
   );
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 text-white">
+    <div className="w-full max-w-4xl mx-auto px-4 text-blue">
       <style>{animStyles}</style>
 
       {/* ── Step 1: Bedrooms ── */}
       {step === 1 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 leading-tight text-white">Number of bedrooms?*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 leading-tight text-blue">Number of bedrooms?*</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-2xl w-full">
             {['1-2', '3', '4', '5', '6+'].map((opt, i) => (
               <button
@@ -98,7 +98,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
                 className={`${cardBase} drop-in drop-in-${i + 2}`}
               >
                 <span className={letterBadge}>{String.fromCharCode(65 + i)}</span>
-                <span className="text-base text-white/80 group-hover:text-green-400 transition-colors">{opt} Bedrooms</span>
+                <span className="text-base text-blue/80 group-hover:text-blue-700 transition-colors">{opt} Bedrooms</span>
               </button>
             ))}
           </div>
@@ -109,29 +109,29 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {step === 1.5 && (
         <div className="flex flex-col h-full">
           <div className="mb-8">
-            <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-4 leading-tight text-white">
+            <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-4 leading-tight text-blue">
               Because your property has 5+ rooms, we'll just need a tad longer to finalise your quote.
             </h2>
-            <h4 className="drop-in drop-in-2 text-sm font-bold text-white/50 leading-relaxed tracking-tight italic">
+            <h4 className="drop-in drop-in-2 text-sm font-bold text-blue/50 leading-relaxed tracking-tight italic">
               Click below and we'll contact you shortly to confirm your price!
             </h4>
           </div>
           <div className="flex flex-col gap-3 max-w-md">
             <button
               onClick={() => setStep(5)}
-              className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-green-400 bg-green-400/10 hover:bg-green-400 group transition-all text-left flex gap-4 items-center"
+              className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-blue-700 bg-blue-700/10 hover:bg-blue-700 group transition-all text-left flex gap-4 items-center"
             >
-              <span className="bg-green-400 text-[#010191] group-hover:bg-[#010191] group-hover:text-green-400 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
-              <span className="font-black uppercase text-[11px] tracking-tight text-green-400 group-hover:text-[#010191] transition-colors">
+              <span className="bg-blue-700 text-[#010191] group-hover:bg-[#010191] group-hover:text-blue-700 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
+              <span className="font-black uppercase text-[11px] tracking-tight text-blue-700 group-hover:text-[#010191] transition-colors">
                 Yes, get in touch to confirm my price!
               </span>
             </button>
             <button
               onClick={onBack}
-              className="drop-in drop-in-4 w-full p-5 rounded-2xl border-2 border-white/10 bg-white/5 hover:border-red-400 transition-all text-left group flex gap-4 items-center"
+              className="drop-in drop-in-4 w-full p-5 rounded-2xl border-2 border-blue/10 bg-blue/5 hover:border-red-400 transition-all text-left group flex gap-4 items-center"
             >
-              <span className="bg-white/10 text-white/40 group-hover:bg-red-500 group-hover:text-white w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">B</span>
-              <span className="font-black uppercase text-[11px] tracking-tight text-white/40 group-hover:text-red-400 transition-colors">
+              <span className="bg-blue/10 text-blue/40 group-hover:bg-red-500 group-hover:text-blue w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">B</span>
+              <span className="font-black uppercase text-[11px] tracking-tight text-blue/40 group-hover:text-red-400 transition-colors">
                 No, thank you!
               </span>
             </button>
@@ -142,10 +142,10 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {/* ── Step 2: Ground Access ── */}
       {step === 2 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 leading-tight text-white">
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 leading-tight text-blue">
             Are we able to reach your windows from ground level without obstruction?*
           </h2>
-          <p className="drop-in drop-in-2 text-sm font-bold text-white/40 mb-4 italic">For example, there is no balcony in the way.</p>
+          <p className="drop-in drop-in-2 text-sm font-bold text-blue/40 mb-4 italic">For example, there is no balcony in the way.</p>
           <div className="drop-in drop-in-3 flex items-start w-full py-4 mb-4">
             <img src={accessImg} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="" />
           </div>
@@ -176,7 +176,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {/* ── Step 3: Third Storey or Below ── */}
       {step === 3 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 leading-tight text-white">
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 leading-tight text-blue">
             Are your windows on the third storey or below?*
           </h2>
           <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
@@ -209,22 +209,22 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {/* ── Step 4: Final Price ── */}
       {step === 4 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-white">Instant Quote</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white/40 mb-8 uppercase tracking-widest">Select Frequency</p>
+          <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-blue">Instant Quote</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-blue/40 mb-8 uppercase tracking-widest">Select Frequency</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             {/* Monthly */}
-            <div onClick={next} className="drop-in drop-in-3 bg-green-400 p-6 rounded-3xl border-2 border-green-400 cursor-pointer hover:shadow-2xl hover:shadow-green-400/20 relative group transition-all">
-              <div className="absolute -top-3 left-6 bg-[#010191] text-green-400 border border-green-400 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
+            <div onClick={next} className="drop-in drop-in-3 bg-white-700 p-6 rounded-3xl border-2 border-blue-700 cursor-pointer hover:shadow-2xl hover:shadow-blue-700/20 relative group transition-all">
+              <div className="absolute -top-3 left-6 bg-[#010191] text-white-700 border border-blue-700 px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">Popular</div>
               <p className="uppercase font-black text-[10px] mb-2 text-[#010191]/60">Monthly</p>
               <h3 className="text-4xl font-black mb-1 text-[#010191]">£{priceMonthly}</h3>
               <p className="text-[10px] font-black text-[#010191]/60 uppercase">Save £4</p>
-              <div className="mt-4 bg-[#010191] text-green-400 py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-white group-hover:text-[#010191] transition-colors">Select</div>
+              <div className="mt-4 bg-[#010191] text-white py-2 rounded-lg font-black uppercase text-xs text-center tracking-widest group-hover:bg-blue group-hover:text-[#4b4be8] transition-colors">Select</div>
             </div>
             {/* 2-Monthly */}
-            <div onClick={next} className="drop-in drop-in-4 bg-white/5 p-6 rounded-3xl border border-white/10 cursor-pointer hover:border-white/30 transition-all group">
-              <p className="uppercase font-black text-[10px] mb-2 text-white/40">2-Monthly</p>
-              <h3 className="text-4xl font-black mb-1 text-white">£{price2Monthly}</h3>
-              <div className="mt-4 border border-white/20 py-2 rounded-lg font-black uppercase text-xs text-white/50 text-center group-hover:bg-white group-hover:text-[#010191] transition-all">Select</div>
+            <div onClick={next} className="drop-in drop-in-4 bg-blue/5 p-6 rounded-3xl border border-blue/10 cursor-pointer hover:border-blue/30 transition-all group">
+              <p className="uppercase font-black text-[10px] mb-2 text-blue/40">2-Monthly</p>
+              <h3 className="text-4xl font-black mb-1 text-blue">£{price2Monthly}</h3>
+              <div className="mt-4 border border-blue/20 py-2 rounded-lg font-black uppercase text-xs text-blue/50 text-center group-hover:bg-blue group-hover:text-[#1515b8] transition-all">Select</div>
             </div>
           </div>
         </div>
@@ -233,7 +233,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {/* ── Step 5: Contact Details ── */}
       {step === 5 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Your Details*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-blue">Your Details*</h2>
           <div className="grid gap-6 max-w-sm w-full">
             <div className="drop-in drop-in-2">
               <input
@@ -272,7 +272,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
                   next();
                 }
               }}
-              className="drop-in drop-in-5 bg-green-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-white transition-all uppercase tracking-wide"
+              className="drop-in drop-in-5 bg-blue-700 text-[#010191] py-4 rounded-xl font-black text-lg mt-4 hover:bg-blue transition-all uppercase tracking-wide"
             >Next</button>
           </div>
         </div>
@@ -281,7 +281,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {/* ── Step 6: Address ── */}
       {step === 6 && (
         <div className="flex flex-col h-full">
-          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Address*</h2>
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-blue">Address*</h2>
           <div className="grid gap-6 max-w-sm w-full">
             <div className="drop-in drop-in-2">
               <input
@@ -319,7 +319,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
                   next();
                 }
               }}
-              className="drop-in drop-in-4 bg-green-400 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-white transition-all tracking-wide"
+              className="drop-in drop-in-4 bg-blue-700 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-blue transition-all tracking-wide"
             >Book Now</button>
           </div>
         </div>
@@ -328,10 +328,10 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       {/* ── Step 7: Success ── */}
       {step === 7 && (
         <div className="flex flex-col items-start justify-center py-8 space-y-4">
-          <div className="drop-in drop-in-1 w-16 h-16 bg-green-400 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-green-400/30 animate-bounce font-black">✓</div>
-          <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-white">Confirmed!</h2>
-          <p className="drop-in drop-in-3 text-sm font-bold text-white/40 uppercase">Thank you for joining the Window Brothers family!</p>
-          <p className="drop-in drop-in-4 text-sm font-bold text-white/40 uppercase">We'll be in touch within 24 hours with the date of your first clean.</p>
+          <div className="drop-in drop-in-1 w-16 h-16 bg-blue-700 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-blue-700/30 animate-bounce font-black">✓</div>
+        <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-blue">Confirmed!</h2>
+          <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">Thank you!</p>
+          <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">We'll be in touch shortly to offer you a date for the first clean.</p>
         </div>
       )}
 
@@ -340,11 +340,11 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
         <div className="absolute bottom-6 right-6 flex gap-2">
           <button
             onClick={step === 1 ? onBack : prev}
-            className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90"
+            className="bg-blue/10 text-blue/50 p-3 rounded-xl hover:bg-blue hover:text-[#010191] transition-all shadow-sm active:scale-90"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
           </button>
-          <button onClick={next} className="bg-green-400 text-[#010191] p-3 rounded-xl hover:bg-white transition-all shadow-md active:scale-90">
+          <button onClick={next} className="bg-blue-700 text-[#010191] p-3 rounded-xl hover:bg-blue transition-all shadow-md active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
         </div>

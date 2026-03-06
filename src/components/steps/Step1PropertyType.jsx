@@ -47,13 +47,13 @@ const Step1PropertyType = ({ selected, onSelect, onNext }) => {
               {/* Key Badge: Flex-shrink-0 ensures it stays a perfect square */}
               <span className={`flex-shrink-0 w-6 h-6 md:w-7 md:h-7 flex items-center justify-center rounded-md font-black text-[10px] md:text-xs transition-all
                 ${selected?.id === item.id 
-                  ? 'bg-black text-[#009933]' 
-                  : 'bg-black/10 text-white group-hover:bg-black/20'}`}>
+                  ? 'bg-black text-[#010191]' 
+                  : 'bg-black/10 text-blue group-hover:bg-black/20'}`}>
                 {item.key}
               </span>
               
               {/* Title: Using truncate or normal wrap depending on space */}
-              <span className="text-[10px] md:text-xs lg:text-sm font-bold text-white/80 uppercase tracking-tight leading-none break-words text-left">
+              <span className="text-[10px] md:text-xs lg:text-sm font-bold text-blue/80 uppercase tracking-tight leading-none break-words text-left">
                 {item.title}
               </span>
             </div>
@@ -64,7 +64,7 @@ const Step1PropertyType = ({ selected, onSelect, onNext }) => {
       {selected && (
         <button
           onClick={onNext}
-          className="w-full sm:w-auto bg-black text-white font-black py-4 px-10 rounded-xl text-sm uppercase tracking-widest animate-in fade-in zoom-in-95 duration-300 hover:bg-slate-900 active:scale-95"
+          className="w-full sm:w-auto bg-black text-blue font-black py-4 px-10 rounded-xl text-sm uppercase tracking-widest animate-in fade-in zoom-in-95 duration-300 hover:bg-slate-900 active:scale-95"
         >
           Continue
         </button>
