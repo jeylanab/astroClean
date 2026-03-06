@@ -336,7 +336,7 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
       )}
 
       {/* ── Navigation Arrows: steps 1–3, skip dead-ends (1.5, 2.5, 3.5) ── */}
-      {step >= 1 && step <= 3 && step !== 1.5 && step !== 2.5 && step !== 3.5 && (
+      {step >= 1 && step <= 5 && step !== 1.5 && step !== 2.5 && step !== 3.5 && (
         <div className="absolute bottom-6 right-6 flex gap-2">
           <button
             onClick={step === 1 ? onBack : prev}

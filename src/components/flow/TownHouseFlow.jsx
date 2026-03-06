@@ -507,7 +507,7 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
       )}
 
       {/* Navigation Arrows — steps 2–13, excluding 2.5 and confirm-button steps (8, 10, 12) */}
-      {step >= 2 && step < 14 && step !== 2.5 && step !== 8 && step !== 10 && step !== 12 && (
+      {step >= 2 && step < 16 && step !== 2.5 && step !== 8 && step !== 10 && step !== 12 && (
         <div className="absolute bottom-6 right-6 flex gap-2">
           <button onClick={step === 2 ? onBack : prev} className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
