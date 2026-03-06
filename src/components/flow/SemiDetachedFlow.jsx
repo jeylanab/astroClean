@@ -149,8 +149,8 @@ Rear Access    : ${formData.rearAccess ? 'Yes (via gate)' : 'No access'}
 
 💷 QUOTE
 ────────
-Monthly  (save £4) : £${priceMonthly}/clean
-2-Monthly           : £${price2Monthly}/clean
+Selected Plan   : ${formData.frequency === 'monthly' ? 'Monthly (save £4)' : '2-Monthly'}
+Price Per Clean : £${formData.frequency === 'monthly' ? priceMonthly : price2Monthly}
 
 ═══════════════════════════════════
     `.trim();
@@ -456,7 +456,7 @@ Monthly  (save £4) : £${priceMonthly}/clean
       {/* Step 14: Final Price */}
       {step === 14 && (
 <div className="flex flex-col h-full">
-  <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-green-700">
+  <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-blue-800">
     Instant Quote
   </h2>
 
@@ -468,7 +468,7 @@ Monthly  (save £4) : £${priceMonthly}/clean
 
     {/* Monthly */}
     <div
-      onClick={next}
+      onClick={() => { setFormData(prev => ({ ...prev, frequency: 'monthly' })); next(); }}
       className="drop-in drop-in-3 bg-green-50 p-6 rounded-3xl border-2 border-green-400 cursor-pointer hover:shadow-2xl hover:shadow-green-400/30 relative group transition-all"
     >
       <div className="absolute -top-3 left-6 bg-green-500 text-white px-3 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">
@@ -494,7 +494,7 @@ Monthly  (save £4) : £${priceMonthly}/clean
 
     {/* 2-Monthly */}
     <div
-      onClick={next}
+      onClick={() => { setFormData(prev => ({ ...prev, frequency: '2-monthly' })); next(); }}
       className="drop-in drop-in-4 bg-green-50 p-6 rounded-3xl border border-green-300 cursor-pointer hover:border-green-500 transition-all group"
     >
       <p className="uppercase font-black text-[10px] mb-2 text-green-700">
