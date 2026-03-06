@@ -49,7 +49,7 @@ const Quote = () => {
   };
 
   return (
-    <div className="w-full min-h-[100dvh] flex items-center justify-center p-3 md:p-8 font-sans overflow-x-hidden text-[#010191]">
+    <div className="w-full min-h-[100dvh] flex items-center justify-center font-sans overflow-x-hidden text-[#010191]">
 
       {/* STEP 0: Intro Screen */}
       {currentStep === 'intro' && (

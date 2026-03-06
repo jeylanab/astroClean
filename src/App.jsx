@@ -25,7 +25,7 @@ function App() {
       `}} />
 
       {/* Main Entry Point */}
-      <main className="min-h-[80vh] flex items-center justify-center py-6 px-6">
+      <main className="min-h-[80vh] flex items-center justify-center  px-6">
         <Quote/>
       </main>
 
