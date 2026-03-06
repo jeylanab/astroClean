@@ -18,7 +18,7 @@ export const pricingConfig = {
       '6+': 40,
     },
     terraced: {
-      '1-2': 16,
+      '1-2': 20,
       '3': 20,
       '4': 24,
       '5': 30,
