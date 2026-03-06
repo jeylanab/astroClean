@@ -7,7 +7,7 @@ export const pricingConfig = {
       '1-2': 28,
       '3': 24,
       '4': 38,
-      '5': 45,
+      '5': 46,
       '6+': 55,
     },
     'semi-detached': {
