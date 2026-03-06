@@ -6,7 +6,7 @@ export const pricingConfig = {
     detached: {
       '1-2': 28,
       '3': 24,
-      '4': 37,
+      '4': 38,
       '5': 45,
       '6+': 55,
     },
