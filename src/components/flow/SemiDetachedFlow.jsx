@@ -13,6 +13,13 @@ import veluxImg from '../../assets/velux.png';
 import conservatoryImg from '../../assets/conservatory.png';
 import bifold from '../../assets/bifold.png';
 
+// ─── EmailJS Config ────────────────────────────────────────────────────────────
+// Replace these three values with yours from emailjs.com → Account → API Keys
+const EMAILJS_PUBLIC_KEY  = 'YF35tqFeJ15hQbeTr';   // e.g. 'user_Abc123XYZ'
+const EMAILJS_SERVICE_ID  = 'service_9nixqxq';   // e.g. 'service_xxxxxxx'
+const EMAILJS_TEMPLATE_ID = 'template_c7tuctb';  // e.g. 'template_xxxxxxx'
+// ──────────────────────────────────────────────────────────────────────────────
+
 // Inject keyframe animation styles once
 const animStyles = `
   @keyframes dropIn {
@@ -59,9 +66,9 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
     rearAccess: null,
   });
 
-  // Validation error state
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors]     = useState({});
   const [shakeKey, setShakeKey] = useState(0);
+  const [sending, setSending]   = useState(false);
 
   const triggerShake = () => setShakeKey(k => k + 1);
 
@@ -82,8 +89,8 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
     return true;
   };
 
-  const next = () => setStep(step + 1);
-  const prev = () => setStep(step - 1);
+  const next = () => setStep(s => s + 1);
+  const prev = () => setStep(s => s - 1);
 
   const toggleExtension = (id) => {
     const current = formData.extensionTypes;
@@ -91,24 +98,84 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
       ...formData,
       extensionTypes: current.includes(id)
         ? current.filter(item => item !== id)
-        : [...current, id]
+        : [...current, id],
     });
   };
 
-  // Pricing Logic
+  // ── Pricing ──────────────────────────────────────────────────────────────────
   const price2Monthly = calculateTotal(formData);
-  const priceMonthly = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
+  const priceMonthly  = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
 
-  // Shared class strings
-  const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all font-bold text-left group cursor-pointer";
+  // ── Email Sender ─────────────────────────────────────────────────────────────
+  const sendBookingEmail = async ({ firstName, phone, address1, address2, postcode }) => {
+    // Load EmailJS SDK on demand (avoids adding a <script> to index.html)
+    if (!window.emailjs) {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+        script.onload  = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+      window.emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+
+    const extensionSummary = formData.hasExtension
+      ? `Yes — ${formData.extensionTypes.join(', ')}`
+      : 'No';
+
+    const message = `
+═══════════════════════════════════
+   NEW BUNGALOW BOOKING — ASTRO CLEAN
+═══════════════════════════════════
+
+👤 CUSTOMER DETAILS
+───────────────────
+Name        : ${firstName}
+Phone       : ${phone}
+Address     : ${address1}${address2 ? ', ' + address2 : ''}
+Postcode    : ${postcode}
+
+🏠 PROPERTY DETAILS
+────────────────────
+Property Type  : Bungalow
+Bedrooms       : ${formData.bedrooms}
+Extension      : ${extensionSummary}
+Skylantern     : ${formData.hasSkylantern ? `Yes — ${formData.skylanternCount}` : 'No'}
+Conservatory   : ${formData.hasConservatory ? `Yes — ${formData.conservatoryPanels} panels` : 'No'}
+Velux Windows  : ${formData.hasVelux ? `Yes — ${formData.veluxCount}` : 'No'}
+Bifold Doors   : ${formData.hasBifold ? `Yes — ${formData.bifoldCount} panels` : 'No'}
+Rear Access    : ${formData.rearAccess ? 'Yes (via gate)' : 'No access'}
+
+💷 QUOTE
+────────
+Monthly  (save £4) : £${priceMonthly}/clean
+2-Monthly           : £${price2Monthly}/clean
+
+═══════════════════════════════════
+    `.trim();
+
+    await window.emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        to_name:   'Astro Clean',
+        from_name: firstName,
+        message,
+      }
+    );
+  };
+
+  // ── Shared Styles ────────────────────────────────────────────────────────────
+  const cardBase    = "flex items-center gap-4 p-4 rounded-xl border border-blue/10 bg-blue/5 hover:border-blue-700 hover:bg-blue-700/10 transition-all font-bold text-left group cursor-pointer";
   const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-blue/20 text-blue group-hover:bg-blue-700 group-hover:text-[#010191]";
-  const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-blue-700/30 bg-blue-700/10 hover:bg-blue-700/20 hover:border-blue-700 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
-  const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-blue-700/20 text-blue-700 group-hover:bg-blue-700 group-hover:text-[#010191] transition-colors";
-  const yesNoLabel = "text-base font-black uppercase tracking-wide text-blue-700 group-hover:text-blue-700 transition-colors";
-  const inputBase = "bg-transparent border-b-2 border-blue/20 focus:border-blue-700 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
-  const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
-  const confirmBtn = "bg-blue-700 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-blue transition-colors";
-  const errMsg = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
+  const yesNoBtn    = "flex items-center gap-4 p-4 rounded-xl border border-blue-700/30 bg-blue-700/10 hover:bg-blue-700/20 hover:border-blue-700 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
+  const yesNoBadge  = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-blue-700/20 text-blue-700 group-hover:bg-blue-700 group-hover:text-[#010191] transition-colors";
+  const yesNoLabel  = "text-base font-black uppercase tracking-wide text-blue-700 group-hover:text-blue-700 transition-colors";
+  const inputBase   = "bg-transparent border-b-2 border-blue/20 focus:border-blue-700 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
+  const inputError  = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-blue font-bold outline-none transition-colors placeholder:text-blue/20 w-full";
+  const confirmBtn  = "bg-blue-700 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-blue transition-colors";
+  const errMsg      = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 text-blue">
@@ -421,7 +488,6 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
                 placeholder="First Name*"
                 className={`${errors.firstName ? inputError : inputBase} text-xl`}
                 onChange={(e) => { setErrors(err => ({ ...err, firstName: '' })); }}
-                ref={el => el && (el._fieldKey = 'firstName')}
                 id="input-firstName"
               />
               {errors.firstName && <p key={shakeKey} className={`${errMsg} shake`}>{errors.firstName}</p>}
@@ -450,6 +516,8 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
                   triggerShake();
                 } else {
                   setErrors({});
+                  // ✅ Save to formData so step 16 can access after unmount
+                  setFormData(prev => ({ ...prev, firstName, phone }));
                   next();
                 }
               }}
@@ -459,7 +527,7 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* Step 16: Address */}
+      {/* Step 16: Address + sends email */}
       {step === 16 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-blue">Address*</h2>
@@ -469,29 +537,47 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
                 onChange={() => setErrors(err => ({ ...err, address1: '' }))} />
               {errors.address1 && <p key={shakeKey} className={`${errMsg} shake`}>{errors.address1}</p>}
             </div>
-            <input type="text" placeholder="Address line 2" className={`${inputBase} drop-in drop-in-2 text-lg`} />
+            <input type="text" placeholder="Address line 2" id="input-address2" className={`${inputBase} drop-in drop-in-2 text-lg`} />
             <div className="drop-in drop-in-3">
               <input type="text" placeholder="Postcode*" id="input-postcode" className={`${errors.postcode ? inputError : inputBase} text-lg`}
                 onChange={() => setErrors(err => ({ ...err, postcode: '' }))} />
               {errors.postcode && <p key={shakeKey} className={`${errMsg} shake`}>{errors.postcode}</p>}
             </div>
             <button
-              onClick={() => {
+              disabled={sending}
+              onClick={async () => {
                 const address1 = document.getElementById('input-address1')?.value?.trim();
-                const postcode = document.getElementById('input-postcode')?.value?.trim();
+                const address2 = document.getElementById('input-address2')?.value?.trim();
+                const postcode  = document.getElementById('input-postcode')?.value?.trim();
+                // ✅ Read from formData — DOM elements from step 15 are unmounted
+                const firstName = formData.firstName;
+                const phone     = formData.phone;
+
                 const newErrors = {};
                 if (!address1) newErrors.address1 = 'Address line 1 is required';
-                if (!postcode) newErrors.postcode = 'Postcode is required';
+                if (!postcode)  newErrors.postcode  = 'Postcode is required';
                 if (Object.keys(newErrors).length > 0) {
                   setErrors(newErrors);
                   triggerShake();
-                } else {
-                  setErrors({});
+                  return;
+                }
+
+                setErrors({});
+                setSending(true);
+                try {
+                  await sendBookingEmail({ firstName, phone, address1, address2, postcode });
+                } catch (err) {
+                  console.error('EmailJS error:', err);
+                  // Still advance — don't block the user on email failure
+                } finally {
+                  setSending(false);
                   next();
                 }
               }}
-              className="drop-in drop-in-4 bg-blue-700 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-blue transition-all tracking-wide"
-            >Book Now</button>
+              className="drop-in drop-in-4 bg-blue-700 text-[#010191] py-4 rounded-xl font-black text-lg mt-6 uppercase hover:bg-blue transition-all tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {sending ? 'Sending…' : 'Book Now'}
+            </button>
           </div>
         </div>
       )}
@@ -500,14 +586,14 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
       {step === 17 && (
         <div className="flex flex-col items-start justify-center py-8 space-y-4">
           <div className="drop-in drop-in-1 w-16 h-16 bg-blue-700 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-blue-700/30 animate-bounce font-black">✓</div>
-        <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-blue">Confirmed!</h2>
+          <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-blue">Confirmed!</h2>
           <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">Thank you!</p>
           <p className="drop-in drop-in-3 text-sm font-bold text-blue/40 uppercase">We'll be in touch shortly to offer you a date for the first clean.</p>
         </div>
       )}
 
-      {/* Navigation Arrows — steps 2–13, excluding 2.5 and confirm-button steps (8, 10, 12) */}
-      {step >= 2 && step < 16 && step !== 2.5 && step !== 8 && step !== 10 && step !== 12 && (
+      {/* Navigation Arrows */}
+      {step >= 2 && step < 16 && (
         <div className="absolute bottom-6 right-6 flex gap-2">
           <button onClick={step === 2 ? onBack : prev} className="bg-blue/10 text-blue/50 p-3 rounded-xl hover:bg-blue hover:text-[#010191] transition-all shadow-sm active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
