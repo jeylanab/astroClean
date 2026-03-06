@@ -53,6 +53,7 @@ export const pricingConfig = {
     skylantern: 4,       // Price per skylantern
     velux: 2,            // Price per velux window
     conservatoryPanel: 1.50, // Price per glass panel
+    bifold: 1,           // Price per bifold door
   },
 
   // Frequency Logic
@@ -92,6 +93,12 @@ export const calculateTotal = (data) => {
   if (data.hasConservatory && data.conservatoryPanels) {
     const count = parseInt(data.conservatoryPanels) || 0;
     total += (count * pricingConfig.extras.conservatoryPanel);
+  }
+  
+  // 6. Add Bifold Doors
+  if (data.hasBifold && data.bifoldCount) {
+    const count = parseInt(data.bifoldCount) || 0;
+    total += (count * pricingConfig.extras.bifold);
   }
 
   return total;

@@ -50,24 +50,21 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
   const next = () => setStep(s => s + 1);
   const prev = () => setStep(s => s - 1);
 
-  // Pricing Logic — same as DetachedFlow
+  // Pricing Logic
   const price2Monthly = calculateTotal(formData);
   const priceMonthly = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
 
-  // Shared class strings — identical to DetachedFlow theme
+  // Shared class strings
   const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-left group cursor-pointer";
   const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-white/20 text-white group-hover:bg-green-400 group-hover:text-[#010191]";
-
-  // Yes/No card button style — both same green card style
   const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-green-400/30 bg-green-400/10 hover:bg-green-400/20 hover:border-green-400 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
   const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-green-400/20 text-green-400 group-hover:bg-green-400 group-hover:text-[#010191] transition-colors";
   const yesNoLabel = "text-base font-black uppercase tracking-wide text-green-400 group-hover:text-green-300 transition-colors";
-
   const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-green-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
   const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
   const errMsg = "text-red-400 text-[10px] font-black uppercase tracking-wide mt-1";
 
-  // Dead-end screen — no access / above third storey
+  // Dead-end screen
   const DeadEnd = ({ message }) => (
     <div className="flex flex-col items-start justify-center py-8 space-y-4">
       <div className="drop-in drop-in-1 w-16 h-16 bg-white/10 border border-white/20 text-white/50 rounded-full flex items-center justify-center text-2xl font-black">✕</div>
@@ -338,10 +335,13 @@ const FlatFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* ── Navigation Arrows (steps 2–3 only, not dead-ends or price+) ── */}
-      {(step === 2 || step === 3) && (
+      {/* ── Navigation Arrows: steps 1–3, skip dead-ends (1.5, 2.5, 3.5) ── */}
+      {step >= 1 && step <= 3 && step !== 1.5 && step !== 2.5 && step !== 3.5 && (
         <div className="absolute bottom-6 right-6 flex gap-2">
-          <button onClick={prev} className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90">
+          <button
+            onClick={step === 1 ? onBack : prev}
+            className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90"
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
           </button>
           <button onClick={next} className="bg-green-400 text-[#010191] p-3 rounded-xl hover:bg-white transition-all shadow-md active:scale-90">

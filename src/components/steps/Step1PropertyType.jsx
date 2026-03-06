@@ -68,7 +68,9 @@ const Step1PropertyType = ({ selected, onSelect, onNext }) => {
         >
           Continue
         </button>
+        
       )}
+      
     </div>
   );
 };

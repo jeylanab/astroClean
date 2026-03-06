@@ -11,6 +11,7 @@ import sideImg from '../../assets/side.png';
 import skylanternImg from '../../assets/skylantern.png';
 import veluxImg from '../../assets/velux.png';
 import conservatoryImg from '../../assets/conservatory.png';
+import bifold from '../../assets/bifold.png';
 
 // Inject keyframe animation styles once
 const animStyles = `
@@ -43,7 +44,7 @@ const animStyles = `
 const TownHouseFlow = ({ propertyInfo, onBack }) => {
   const [step, setStep] = useState(2);
   const [formData, setFormData] = useState({
-    propertyType: 'detached',
+    propertyType: 'town-house',
     bedrooms: '',
     hasExtension: null,
     extensionTypes: [],
@@ -53,6 +54,8 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
     conservatoryPanels: '',
     hasVelux: null,
     veluxCount: '',
+    hasBifold: null,
+    bifoldCount: '',
     rearAccess: null,
   });
 
@@ -62,7 +65,6 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
 
   const triggerShake = () => setShakeKey(k => k + 1);
 
-  // Validate and attempt to proceed — returns true if valid
   const validateAndNext = (fields) => {
     const newErrors = {};
     fields.forEach(({ key, label, value }) => {
@@ -97,17 +99,12 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
   const price2Monthly = calculateTotal(formData);
   const priceMonthly = price2Monthly - (pricingConfig.frequency?.monthlyDiscount || 4);
 
-  // Shared class strings for the theme
+  // Shared class strings
   const cardBase = "flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-green-400 hover:bg-green-400/10 transition-all font-bold text-left group cursor-pointer";
   const letterBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black transition-colors bg-white/20 text-white group-hover:bg-green-400 group-hover:text-[#010191]";
-
-  // New yes/no card button style — both same green card style
   const yesNoBtn = "flex items-center gap-4 p-4 rounded-xl border border-green-400/30 bg-green-400/10 hover:bg-green-400/20 hover:border-green-400 active:scale-95 transition-all font-bold text-left group cursor-pointer w-full";
   const yesNoBadge = "w-7 h-7 flex-shrink-0 flex items-center justify-center rounded text-[10px] font-black bg-green-400/20 text-green-400 group-hover:bg-green-400 group-hover:text-[#010191] transition-colors";
   const yesNoLabel = "text-base font-black uppercase tracking-wide text-green-400 group-hover:text-green-300 transition-colors";
-
-  const btnPrimary = "bg-green-400 text-[#010191] p-4 rounded-xl font-black uppercase hover:bg-white active:scale-95 transition-all text-sm tracking-wide";
-  const btnSecondary = "bg-white/5 border border-white/10 p-4 rounded-xl font-bold uppercase text-white/40 hover:bg-white/10 hover:text-white/70 active:scale-95 transition-all text-sm";
   const inputBase = "bg-transparent border-b-2 border-white/20 focus:border-green-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
   const inputError = "bg-transparent border-b-2 border-red-400 focus:border-red-400 p-2 text-white font-bold outline-none transition-colors placeholder:text-white/20 w-full";
   const confirmBtn = "bg-green-400 text-[#010191] py-4 px-12 rounded-xl font-black self-start uppercase text-xs tracking-widest hover:bg-white transition-colors";
@@ -150,7 +147,7 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
           </div>
           <div className="flex flex-col gap-3 max-w-md">
             <button
-              onClick={() => setStep(13)}
+              onClick={() => setStep(15)}
               className="drop-in drop-in-3 w-full p-5 rounded-2xl border-2 border-green-400 bg-green-400/10 hover:bg-green-400 group transition-all text-left flex gap-4 items-center"
             >
               <span className="bg-green-400 text-[#010191] group-hover:bg-[#010191] group-hover:text-green-400 w-7 h-7 flex-shrink-0 flex items-center justify-center rounded font-black text-[10px]">A</span>
@@ -277,7 +274,7 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
       {step === 8 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many glass panels does your conservatory have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 max-w-xs ">Count the whole panel from floor to ceiling as one panel. Please don't include your roof panels as we don't offer roof cleaning as a service.</p>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 max-w-xs">Count the whole panel from floor to ceiling as one panel. Please don't include your roof panels as we don't offer roof cleaning as a service.</p>
           <div className="drop-in drop-in-3">
             <input
               type="number"
@@ -316,7 +313,7 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
       {step === 10 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many velux windows does your property have?*</h2>
-          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 ">Please only include velux windows we can reach from ground level.</p>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8">Please only include velux windows we can reach from ground level.</p>
           <div className="drop-in drop-in-3">
             <input
               type="number"
@@ -331,8 +328,47 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* Step 11: Rear Access */}
+      {/* Step 11: Bifold Check */}
       {step === 11 && (
+        <div className="flex flex-col h-full">
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-6 text-white leading-tight">Do you have any bifold doors?*</h2>
+          <div className="drop-in drop-in-2 flex items-start w-full py-4 mb-4">
+            <img src={bifold} className="w-40 md:w-56 h-auto drop-shadow-2xl" alt="Bifold doors" />
+          </div>
+          <div className="flex flex-col gap-2 w-full max-w-sm">
+            <button onClick={() => { setFormData({ ...formData, hasBifold: true }); next(); }} className={`${yesNoBtn} drop-in drop-in-3`}>
+              <span className={yesNoBadge}>Y</span>
+              <span className={yesNoLabel}>Yes</span>
+            </button>
+            <button onClick={() => { setFormData({ ...formData, hasBifold: false, bifoldCount: '' }); setStep(13); }} className={`${yesNoBtn} drop-in drop-in-4`}>
+              <span className={yesNoBadge}>N</span>
+              <span className={yesNoLabel}>No</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 12: Bifold Panel Count */}
+      {step === 12 && (
+        <div className="flex flex-col h-full">
+          <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-2 text-white">How many glass panels of bifold door do you have?*</h2>
+          <p className="drop-in drop-in-2 text-[10px] font-bold text-white mb-8 max-w-xs">Count each individual glass panel across all your bifold doors. A standard bifold door typically has 3–6 panels.</p>
+          <div className="drop-in drop-in-3">
+            <input
+              type="number"
+              placeholder="Type here"
+              className={`${errors.bifoldCount ? inputError : inputBase} max-w-[120px] mb-1`}
+              onChange={(e) => { setFormData({ ...formData, bifoldCount: e.target.value }); setErrors(err => ({ ...err, bifoldCount: '' })); }}
+            />
+            {errors.bifoldCount && <p key={shakeKey} className={`${errMsg} shake`}>{errors.bifoldCount}</p>}
+          </div>
+          <div className="mb-8" />
+          <button onClick={() => validateAndNext([{ key: 'bifoldCount', label: 'Number of bifold panels', value: formData.bifoldCount }])} className={`${confirmBtn} drop-in drop-in-4`}>Confirm</button>
+        </div>
+      )}
+
+      {/* Step 13: Rear Access */}
+      {step === 13 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Can we access the rear windows without coming through your property, i.e. through a back gate?*</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full flex-1">
@@ -350,8 +386,8 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* Step 12: Final Price */}
-      {step === 12 && (
+      {/* Step 14: Final Price */}
+      {step === 14 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-white">Instant Quote</h2>
           <p className="drop-in drop-in-2 text-[10px] font-bold text-white/40 mb-8 uppercase tracking-widest">Select Frequency</p>
@@ -374,8 +410,8 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* Step 13: Contact Details */}
-      {step === 13 && (
+      {/* Step 15: Contact Details */}
+      {step === 15 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Your Details*</h2>
           <div className="grid gap-6 max-w-sm w-full">
@@ -423,8 +459,8 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* Step 14: Address */}
-      {step === 14 && (
+      {/* Step 16: Address */}
+      {step === 16 && (
         <div className="flex flex-col h-full">
           <h2 className="drop-in drop-in-1 text-2xl md:text-3xl font-black uppercase mb-8 leading-tight text-white">Address*</h2>
           <div className="grid gap-6 max-w-sm w-full">
@@ -461,7 +497,7 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
       )}
 
       {/* Final Step: Success */}
-      {step === 15 && (
+      {step === 17 && (
         <div className="flex flex-col items-start justify-center py-8 space-y-4">
           <div className="drop-in drop-in-1 w-16 h-16 bg-green-400 text-[#010191] rounded-full flex items-center justify-center text-2xl shadow-lg shadow-green-400/30 animate-bounce font-black">✓</div>
           <h2 className="drop-in drop-in-2 text-2xl md:text-4xl font-black uppercase leading-none max-w-sm text-white">Confirmed!</h2>
@@ -470,10 +506,10 @@ const TownHouseFlow = ({ propertyInfo, onBack }) => {
         </div>
       )}
 
-      {/* Navigation Arrows */}
-      {step > 2 && step < 12 && (
+      {/* Navigation Arrows — steps 2–13, excluding 2.5 and confirm-button steps (8, 10, 12) */}
+      {step >= 2 && step < 14 && step !== 2.5 && step !== 8 && step !== 10 && step !== 12 && (
         <div className="absolute bottom-6 right-6 flex gap-2">
-          <button onClick={prev} className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90">
+          <button onClick={step === 2 ? onBack : prev} className="bg-white/10 text-white/50 p-3 rounded-xl hover:bg-white hover:text-[#010191] transition-all shadow-sm active:scale-90">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
           </button>
           <button onClick={next} className="bg-green-400 text-[#010191] p-3 rounded-xl hover:bg-white transition-all shadow-md active:scale-90">
