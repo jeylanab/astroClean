@@ -456,7 +456,7 @@ Monthly  (save £4) : £${priceMonthly}/clean
       {/* Step 14: Final Price */}
       {step === 14 && (
 <div className="flex flex-col h-full">
-  <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-green-700">
+  <h2 className="drop-in drop-in-1 text-3xl md:text-4xl font-black uppercase mb-1 text-blue-800">
     Instant Quote
   </h2>
 
