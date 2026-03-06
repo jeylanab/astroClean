@@ -522,7 +522,7 @@ Price Per Clean : £${formData.frequency === 'monthly' ? priceMonthly : price2Mo
             <div className="drop-in drop-in-2">
               <input
                 type="text"
-                placeholder="First Name*"
+                placeholder="Full Name*"
                 className={`${errors.firstName ? inputError : inputBase} text-xl`}
                 onChange={(e) => { setErrors(err => ({ ...err, firstName: '' })); }}
                 id="input-firstName"
