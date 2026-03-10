@@ -126,7 +126,7 @@ const SemiDetachedFlow = ({ propertyInfo, onBack }) => {
 
     const message = `
 ═══════════════════════════════════
-   NEW BUNGALOW BOOKING — ASTRO CLEAN
+   NEW SEMI-DETACHED BOOKING — ASTRO CLEAN
 ═══════════════════════════════════
 
 👤 CUSTOMER DETAILS
@@ -138,7 +138,7 @@ Postcode    : ${postcode}
 
 🏠 PROPERTY DETAILS
 ────────────────────
-Property Type  : Bungalow
+Property Type  : Semi-Detached
 Bedrooms       : ${formData.bedrooms}
 Extension      : ${extensionSummary}
 Skylantern     : ${formData.hasSkylantern ? `Yes — ${formData.skylanternCount}` : 'No'}

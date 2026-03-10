@@ -126,7 +126,7 @@ const DetachedFlow = ({ propertyInfo, onBack }) => {
 
     const message = `
 ═══════════════════════════════════
-   NEW BUNGALOW BOOKING — ASTRO CLEAN
+   NEW DETACHED BOOKING — ASTRO CLEAN
 ═══════════════════════════════════
 
 👤 CUSTOMER DETAILS
@@ -138,7 +138,7 @@ Postcode    : ${postcode}
 
 🏠 PROPERTY DETAILS
 ────────────────────
-Property Type  : Bungalow
+Property Type  : Detached
 Bedrooms       : ${formData.bedrooms}
 Extension      : ${extensionSummary}
 Skylantern     : ${formData.hasSkylantern ? `Yes — ${formData.skylanternCount}` : 'No'}

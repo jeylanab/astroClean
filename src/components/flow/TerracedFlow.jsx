@@ -126,7 +126,7 @@ const TerracedFlow = ({ propertyInfo, onBack }) => {
 
     const message = `
 ═══════════════════════════════════
-   NEW BUNGALOW BOOKING — ASTRO CLEAN
+   NEW TERRACED BOOKING — ASTRO CLEAN
 ═══════════════════════════════════
 
 👤 CUSTOMER DETAILS
@@ -138,7 +138,7 @@ Postcode    : ${postcode}
 
 🏠 PROPERTY DETAILS
 ────────────────────
-Property Type  : Bungalow
+Property Type  : Terraced
 Bedrooms       : ${formData.bedrooms}
 Extension      : ${extensionSummary}
 Skylantern     : ${formData.hasSkylantern ? `Yes — ${formData.skylanternCount}` : 'No'}
